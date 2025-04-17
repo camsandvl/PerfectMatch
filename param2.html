@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pregunta2</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><h1>Perfect Match</h1></header>
+  <form action="param3.html" method="GET" class="container">
+    
+    <input type="hidden" name="parameter1" value="">
+
+    <fieldset>
+      <legend>2. Pregunta 2</legend>
+      <label><input type="radio" name="parameter2" value="P2Opcion1"> Opcion 1</label><br>
+      <label><input type="radio" name="parameter2" value="P2Opcion2"> Opcion 2</label><br>
+      <label><input type="radio" name="parameter2" value="P2Opcion3"> Opcion 3</label>
+    </fieldset>
+
+    <div style="display:flex; gap:1rem;">
+        <button 
+          type="submit" 
+          formaction="param1.html" 
+          formmethod="get" 
+          formnovalidate 
+          class="btn"
+        >
+          ‹ Back
+        </button>
+      
+        <button type="submit" class="btn">
+          Next ›
+        </button>
+      </div>
+
+  </form>
+  <footer><p>Mensaje</p></footer>
+</body>
+</html>
