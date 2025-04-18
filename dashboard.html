@@ -8,12 +8,18 @@
 </head>
 <body>
   <header><h1>Perfect Match</h1></header>
-
+  
   <input type="hidden" name="username" value="">
   <input type="hidden" name="password" value="">
 
   <main class="container">
     <h2>Qué quieres hacer?</h2>
+
+    <!--El botón de resultados pasados no hace nada ahorita,
+    para que funcione hay que guardar las respuestas de cada usuario
+    como un nuevo "answer" node o relationship, después linkear la "answer" al "user" con una TOOK
+    relationship, añadir un repository method para obtener las "answers" más recientes, añadir una ruta en el controller para los últimos resultados, y cambiar la href 
+    del botón -->
 
     <a href="results.html" class="btn btn-primary">Ver mis resultados pasados</a>
     <a href="param1.html" class="btn">Tomar el quiz</a>

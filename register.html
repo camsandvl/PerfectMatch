@@ -13,6 +13,8 @@
     <form action="dashboard.html" method="GET">
       <fieldset>
         <label>
+
+        <!--Solo se puede-->
           Username:<br>
           <input type="text" name="username" required>
         </label><br><br>
@@ -21,6 +23,13 @@
           <input type="password" name="password" required>
         </label>
       </fieldset>
+
+       <!--El user va a ingresar la login form, se va al java controller, java revisa si el username 
+       esta en la databse y si matchea la password, si hay error java lo redirectea a register.html y
+       le enseña el mensaje de error, para eso usamos thymeleaf para mostrar el mensaje solo cuando es necesario-->
+
+      <p style="color: rgb(223, 102, 102);">Incorrect username or password.</p>
+
       <button type="submit" class="btn">Next ›</button>
     </form>
   </main>
