@@ -1,8 +1,11 @@
 package com.ProyectoMaquillaje.model;
 
+import java.util.List;
+
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 @Node("Usuario")
 public class Usuario {
@@ -13,6 +16,10 @@ public class Usuario {
 
     private String nombre;
     private String password;
+
+    // Relación con las respuestas
+    @Relationship(type = "RESPONDIO")
+    private List<Respuestas> respuestas;
 
     public Long getId() {
         return id;
@@ -38,6 +45,11 @@ public class Usuario {
         this.password = password;
     }
 
+    public List<Respuestas> getRespuestas() {
+        return respuestas;
+    }
+
+    public void setRespuestas(List<Respuestas> respuestas) {
+        this.respuestas = respuestas;
+    }
 }
-
-
