@@ -1,15 +1,15 @@
 package com.ProyectoMaquillaje.repository;
 
+import java.util.List;
+
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.data.repository.query.Param;
+import com.ProyectoMaquillaje.model.Producto;
 
-// encuentra productos que matcheen con las respuestas del quiz
-
-
-public class RepositorioProducto {
-    
+// buscar producto por tono de piel
+// buscar producto por nombre
+@Repository
+public interface RepositorioProducto extends Neo4jRepository<Producto, Long> {
+    List<Producto> findByTonoDePiel(String tonoDePiel);
 }

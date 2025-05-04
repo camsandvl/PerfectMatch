@@ -1,14 +1,15 @@
 package com.ProyectoMaquillaje.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.data.repository.query.Param;
+import com.ProyectoMaquillaje.model.Usuario;
 
-// nos permite acceder a usuarios por nombre
-
-public class RepositorioUsuario {
-    
+//buscar usuario por nombre
+@Repository
+public interface RepositorioUsuario extends Neo4jRepository<Usuario, Long> {
+    Optional<Usuario> findByNombre(String nombre);
 }
+
