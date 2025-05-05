@@ -13,7 +13,7 @@ public class Producto {
 
     private String nombre;
     private String marca;
-    private String tono;
+    private String tonoDePiel;
 
     public Long getId() {
         return id;
@@ -40,10 +40,10 @@ public class Producto {
     }
 
     public String getTono() {
-        return tono;
+        return tonoDePiel;
     }
 
     public void setTono(String tono) {
-        this.tono = tono;
+        this.tonoDePiel = tono;
     }
 }
