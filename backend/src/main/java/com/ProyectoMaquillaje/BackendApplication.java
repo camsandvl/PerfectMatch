@@ -1,4 +1,4 @@
-package com.ProyectoMaquillaje.backend;
+package com.ProyectoMaquillaje;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
