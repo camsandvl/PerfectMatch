@@ -1,27 +1,42 @@
 package com.ProyectoMaquillaje.repository;
 
-import java.util.List;
-
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.stereotype.Repository;
-
 import com.ProyectoMaquillaje.model.Producto;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
+import java.util.Optional;
 import com.ProyectoMaquillaje.model.Respuestas;
 
-@Repository
 public interface RepositorioProducto extends Neo4jRepository<Producto, Long> {
 
     @Query("""
-        MATCH (p:Producto), (r:Respuestas)
-        WHERE p.tonoDePiel = r.tonoDePiel AND
-              p.acabado = r.acabado AND
-              p.cobertura = r.cobertura
+        MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas),
+              (p:Producto)-[:TIENE_TONO]->(t:TonoDePiel),
+              (p)-[:TIENE_ACABADO]->(a:Acabado),
+              (p)-[:TIENE_COBERTURA]->(c:Cobertura)
+        WHERE
+            r.tonoDePiel = t.nombre AND
+            r.acabado = a.nombre AND
+            r.cobertura = c.nombre
         RETURN p
     """)
-    List<Producto> findProductosRecomendados(List<Respuestas> respuestas);
+    List<Producto> findProductosRecomendados(@Param("nombreUsuario") String nombreUsuario);
 
-    // Esta consulta busca productos que coincidan con las respuestas del usuario
+    @Query("""
+        MATCH (r:Respuestas),
+              (p:Producto)-[:TIENE_TONO]->(t:TonoDePiel),
+              (p)-[:TIENE_ACABADO]->(a:Acabado),
+              (p)-[:TIENE_COBERTURA]->(c:Cobertura)
+        WHERE
+            r.tonoDePiel = t.nombre AND
+            r.acabado = a.nombre AND
+            r.cobertura = c.nombre
+            AND r IN $respuestas
+        RETURN p
+    """)
+    List<Producto> findProductosRecomendados(@Param("respuestas") List<Respuestas> respuestas);
+
     @Query("""
     MATCH (p:Producto)
     WHERE 
@@ -33,13 +48,20 @@ public interface RepositorioProducto extends Neo4jRepository<Producto, Long> {
     List<Producto> recomendarPorRespuestas(String tonoDePiel, String acabado, String cobertura);
 
     @Query("""
-        MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas),
-            (p:Producto)
-        WHERE 
-            p.tonoDePiel = r.tonoDePiel AND
-            p.acabado = r.acabado AND
-            p.cobertura = r.cobertura
-        RETURN p
+    MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas)
+    MATCH (p:Producto)
+    WHERE 
+        p.tonoDePiel = r.tonoDePiel AND
+        p.acabado = r.acabado AND
+        p.cobertura = r.cobertura
+    RETURN p
     """)
-    List<Producto> recomendarPorUsuario(String nombreUsuario);
+List<Producto> recomendarPorUsuario(String nombreUsuario);
+@Query("""
+    MATCH (p:Producto {nombre: $nombre})
+    RETURN p
+""")
+Optional<Producto> findByNombre(@Param("nombre") String nombre);
+
+
 }

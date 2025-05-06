@@ -8,27 +8,47 @@ import org.springframework.stereotype.Component;
 import com.ProyectoMaquillaje.model.Producto;
 import com.ProyectoMaquillaje.service.ProductoService;
 
+import java.util.Optional;
+
 @Component
 public class ProductoDataLoader {
 
     @Autowired
     private ProductoService productoService;
+
     @EventListener(ContextRefreshedEvent.class)
     public void onApplicationEvent() {
         init();
     }
 
     public void init() {
-        Producto prod1 = new Producto();
-        prod1.setNombre("Concelear Mate");
-        prod1.setDescripcion("Corrector de ojeras con acabado mate y alta cobertura.");
-       
-        Producto prod2 = new Producto();
-        prod2.setNombre("Concelear Hidratante");
-        prod2.setDescripcion("Corrector de ojeras con acabado hidratante y cobertura ligera.");
-        
+        guardarSiNoExiste("Fit Me Concealer", "Maybelline", 
+            "Corrector de ojeras con acabado luminoso y cobertura media.", 
+            10.99, "claro", "luminoso", "media");
 
-        productoService.guardarProducto(prod1);
-        productoService.guardarProducto(prod2);
+        guardarSiNoExiste("Radiant Creamy Concealer", "NARS", 
+            "Corrector de ojeras con acabado luminoso y alta cobertura.", 
+            29.99, "medio", "luminoso", "alta");
+
+        guardarSiNoExiste("Tarte Shape Tape", "Tarte", 
+            "Corrector de ojeras con acabado mate y alta cobertura.", 
+            27.00, "oscuro", "mate", "alta");
+    }
+
+    private void guardarSiNoExiste(String nombre, String marca, String descripcion, 
+                                   double precio, String tonoDePiel, 
+                                   String acabado, String cobertura) {
+        Optional<Producto> existente = productoService.buscarPorNombre(nombre);
+        if (existente.isEmpty()) {
+            Producto prod = new Producto();
+            prod.setNombre(nombre);
+            prod.setMarca(marca);
+            prod.setDescripcion(descripcion);
+            prod.setPrecio(precio);
+            prod.setTonoDePiel(tonoDePiel);
+            prod.setAcabado(acabado);
+            prod.setCobertura(cobertura);
+            productoService.guardarProducto(prod);
+        }
     }
 }

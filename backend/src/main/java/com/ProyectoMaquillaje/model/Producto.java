@@ -15,6 +15,10 @@ public class Producto {
     private String marca;
     private String tonoDePiel;
     private String descripcion;
+    private double precio;
+    private String acabado;
+    private String cobertura;
+
     
     public String getDescripcion() {
         return descripcion;
@@ -49,11 +53,36 @@ public class Producto {
         this.marca = marca;
     }
 
-    public String getTono() {
+    public String getTonoDePiel() {
         return tonoDePiel;
     }
 
-    public void setTono(String tono) {
+    public void setTonoDePiel(String tono) {
         this.tonoDePiel = tono;
     }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public String getAcabado() {
+        return acabado;
+    }
+    
+    public void setAcabado(String acabado) {
+        this.acabado = acabado;
+    }
+    
+    public String getCobertura() {
+        return cobertura;
+    }
+    
+    public void setCobertura(String cobertura) {
+        this.cobertura = cobertura;
+    }
+    
 }

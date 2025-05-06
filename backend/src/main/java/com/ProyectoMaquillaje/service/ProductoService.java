@@ -1,6 +1,7 @@
 package com.ProyectoMaquillaje.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,8 @@ public class ProductoService {
     public List<Producto> obtenerTodosLosProductos() {
         return repositorioProducto.findAll();
     }
+    public Optional<Producto> buscarPorNombre(String nombre) {
+        return repositorioProducto.findByNombre(nombre);
+    }
+    
 }

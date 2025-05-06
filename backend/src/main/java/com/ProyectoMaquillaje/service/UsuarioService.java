@@ -1,5 +1,6 @@
 package com.ProyectoMaquillaje.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,17 +22,18 @@ public class UsuarioService {
     private RepositorioProducto repositorioProducto;
 
     // Registrar usuario con sus respuestas correctamente
-    // Registrar usuario con sus respuestas correctamente
     public Usuario registrarUsuario(Usuario usuario) {
-        if (usuario.getRespuestas() != null) {
-            for (Respuestas respuesta : usuario.getRespuestas()) {
-                usuario.addRespuesta(respuesta); 
-                List<Producto> productosRecomendados = obtenerProductosSegunRespuesta(respuesta);
-                respuesta.setProductos(productosRecomendados);
-            }
+    if (usuario.getRespuestas() != null) {
+        // Crear una copia de las respuestas para evitar modificar la lista original durante la iteración
+        List<Respuestas> respuestas = new ArrayList<>(usuario.getRespuestas());
+        for (Respuestas respuesta : respuestas) {
+            usuario.addRespuesta(respuesta); 
+            List<Producto> productosRecomendados = obtenerProductosSegunRespuesta(respuesta);
+            respuesta.setProductos(productosRecomendados);
         }
-        return repositorioUsuario.save(usuario);
     }
+    return repositorioUsuario.save(usuario);
+}
     
 
     // Registrar usuario y productos recomendados
@@ -60,14 +62,15 @@ public class UsuarioService {
         Usuario usuario = repositorioUsuario.findByNombre(nombreUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Obtener las respuestas del usuario
-        List<Respuestas> respuestas = usuario.getRespuestas();
+        // Buscar productos que coincidan con las respuestas del usuario
+        List<Producto> productosRecomendados = repositorioProducto.findProductosRecomendados(nombreUsuario);
 
-        // Buscar productos que coincidan con las respuestas
-        List<Producto> productosRecomendados = repositorioProducto.findProductosRecomendados(respuestas);
+        // Crear explícitamente las relaciones PREFIERE en Neo4j
+        for (Producto producto : productosRecomendados) {
+            usuario.addProducto(producto); // Agregar producto a la lista
+        }
 
-        // Crear la relación PREFIERE entre el usuario y los productos recomendados
-        usuario.setProductos(productosRecomendados);
+        // Guardar el usuario con las relaciones PREFIERE
         repositorioUsuario.save(usuario);
 
         return productosRecomendados;
