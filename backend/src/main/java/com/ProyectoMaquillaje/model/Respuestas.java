@@ -1,5 +1,7 @@
 package com.ProyectoMaquillaje.model;
 
+import java.util.List;
+
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
@@ -58,4 +60,17 @@ public class Respuestas {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    @Relationship(type = "RECOMIENDA", direction = Relationship.Direction.OUTGOING)
+    private List<Producto> productos;
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+    
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+    
+
 }
