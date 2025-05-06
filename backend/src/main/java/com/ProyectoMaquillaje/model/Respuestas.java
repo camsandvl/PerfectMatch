@@ -16,7 +16,7 @@ public class Respuestas {
     private String acabado;
     private String cobertura;
 
-    @Relationship(type = "RESPONDIO", direction = Relationship.Direction.OUTGOING)
+    @Relationship(type = "RESPONDIO", direction = Relationship.Direction.INCOMING)
     private Usuario usuario;
 
     public Long getId() {

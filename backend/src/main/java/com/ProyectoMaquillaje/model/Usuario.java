@@ -1,5 +1,6 @@
 package com.ProyectoMaquillaje.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -17,9 +18,12 @@ public class Usuario {
     private String nombre;
     private String password;
 
-    // Relación con las respuestas
-    @Relationship(type = "RESPONDIO")
-    private List<Respuestas> respuestas;
+    @Relationship(type = "PREFIERE", direction = Relationship.Direction.OUTGOING)
+    private List<Producto> productos = new ArrayList<>();
+
+    @Relationship(type = "RESPONDIO", direction = Relationship.Direction.OUTGOING)
+    private List<Respuestas> respuestas = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -52,4 +56,22 @@ public class Usuario {
     public void setRespuestas(List<Respuestas> respuestas) {
         this.respuestas = respuestas;
     }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public void addRespuesta(Respuestas respuesta) {
+        respuesta.setUsuario(this);  // Establece la relación inversa (muy importante)
+        this.respuestas.add(respuesta);
+    }
+    
+    public void addProducto(Producto producto) {
+        this.productos.add(producto);
+    }
+    
 }

@@ -14,6 +14,16 @@ public class Producto {
     private String nombre;
     private String marca;
     private String tonoDePiel;
+    private String descripcion;
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+    
+    public void setDescripcion(String nuevaDescripcion) {
+        this.descripcion = nuevaDescripcion;
+    }
+    
 
     public Long getId() {
         return id;
