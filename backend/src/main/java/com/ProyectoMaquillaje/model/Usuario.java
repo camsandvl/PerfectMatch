@@ -53,6 +53,7 @@ public class Usuario {
         return respuestas;
     }
 
+
     public void setRespuestas(List<Respuestas> respuestas) {
         this.respuestas = respuestas;
     }
@@ -73,5 +74,7 @@ public class Usuario {
     public void addProducto(Producto producto) {
         this.productos.add(producto);
     }
+
+    
     
 }

@@ -40,5 +40,27 @@
 
   </form>
   <footer><p>Mensaje</p></footer>
+
+  <script>
+    // Almacenar los valores anteriores desde localStorage
+    const form = document.getElementById("quizForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const tonoDePiel = localStorage.getItem("tonoDePiel") || "claro";
+      const acabado = localStorage.getItem("acabado") || "luminoso";
+      const cobertura = form.Cobertura.value;
+
+      // Guardar cobertura si quieres volver a usarla
+      localStorage.setItem("cobertura", cobertura);
+
+      // Redirigir al backend para mostrar recomendaciones
+      window.location.href = http;//localhost:8080/vista/recomendaciones?tonoDePiel=${tonoDePiel}&acabado=${acabado}&cobertura=${cobertura};
+    });
+  </script>
+
+
+
 </body>
 </html>
