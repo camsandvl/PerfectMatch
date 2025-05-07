@@ -8,7 +8,7 @@
 </head>
 <body>
   <header><h1>Perfect Match</h1></header>
-  <form action="results.html" method="GET" class="container">
+  <form id="quizForm" class="container">
 
     <input type="hidden" name="TonoDePiel" value="">
     <input type="hidden" name="Acabado" value="">
@@ -18,8 +18,8 @@
 
     <fieldset>
       <legend>Que cobertura prefieres?</legend>
-      <label><input type="radio" name="Cobertura" value="CoberturaAlta" required> Alta cobertura</label><br>
-      <label><input type="radio" name="Cobertura" value="CoberturaLigera"> Cobertura Ligera</label>
+      <label><input type="radio" name="Cobertura" value="alta" required> Alta cobertura</label><br>
+      <label><input type="radio" name="Cobertura" value="ligera"> Cobertura Ligera</label>
     </fieldset>
     
     <div style="display:flex; gap:1rem;">
@@ -42,25 +42,15 @@
   <footer><p>Mensaje</p></footer>
 
   <script>
-    // Almacenar los valores anteriores desde localStorage
-    const form = document.getElementById("quizForm");
+  document.getElementById('quizForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
+    const form = event.target;
+    const params = new URLSearchParams(new FormData(form)).toString();
 
-      const tonoDePiel = localStorage.getItem("tonoDePiel") || "claro";
-      const acabado = localStorage.getItem("acabado") || "luminoso";
-      const cobertura = form.Cobertura.value;
-
-      // Guardar cobertura si quieres volver a usarla
-      localStorage.setItem("cobertura", cobertura);
-
-      // Redirigir al backend para mostrar recomendaciones
-      window.location.href = http;//localhost:8080/vista/recomendaciones?tonoDePiel=${tonoDePiel}&acabado=${acabado}&cobertura=${cobertura};
-    });
-  </script>
-
-
-
+    // Redirige al controlador Spring
+    window.location.href = http;//localhost:8080/vista/recomendaciones?${params};
+  });
+</script>
 </body>
 </html>

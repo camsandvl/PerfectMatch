@@ -1,27 +1,21 @@
-<!--Toda esta página no cuenta porque no tenemos nada de la database, es solo un prototype,
-para que funcione en java, hay que leer todos los incoming request params, osea el username, password y los parámetros.
-Despúes crear o verificar el user en Neo4j, runnear la recommendation query usando
-los parameter values, lo que nos devuelve los productos recomendados y ya con eso generamos 
-results.html con Thymeleaf-->
-
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resultados</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Resultados</title>
 </head>
 <body>
-  <header><h1>Perfect Match</h1></header>
-  <main class="container">
-    <h2>Tu Perfect Match</h2>
-    <div class="results">
+    <h1>Productos recomendados</h1>
+    <ul>
+        <li th:each="producto : ${productos}">
+            <strong th:text="${producto.nombre}"></strong> - 
+            <span th:text="${producto.descripcion}"></span>
+        </li>
+    </ul>
+    <a href="index.html" class="btn">Volver al inicio!</a>
+</body>
+</html>
 
     
       
-    <a href="index.html" class="btn">Volver al inicio!</a>
-  </main>
-  <footer><p>Mensaje</p></footer>
-</body>
-</html>
+  

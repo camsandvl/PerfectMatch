@@ -23,6 +23,7 @@ public class ControllerVistaRecomendacion {
     // Muestra resultados HTML con productos recomendados según las respuestas
     @GetMapping("/recomendaciones")
     public String mostrarRecomendaciones(
+            @RequestParam String username,
             @RequestParam String tonoDePiel,
             @RequestParam String acabado,
             @RequestParam String cobertura,
