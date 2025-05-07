@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,23 +22,24 @@ public class ControllerVistaRecomendacion {
     // Muestra resultados HTML con productos recomendados según las respuestas
     @GetMapping("/recomendaciones")
     public String mostrarRecomendaciones(
-            @RequestParam String username,
-            @RequestParam String tonoDePiel,
-            @RequestParam String acabado,
-            @RequestParam String cobertura,
+            @RequestParam(required = false) String tonoDePiel,
+            @RequestParam(required = false) String acabado,
+            @RequestParam(required = false) String cobertura,
             Model model) {
 
-        List<Producto> productos = repositorioProducto.recomendarPorRespuestas(tonoDePiel, acabado, cobertura);
-        model.addAttribute("productos", productos);
-        return "results";  // esto cargará results.html en /templates 
-    }
+        // Log para verificar los parámetros recibidos
+        System.out.println("Parámetros recibidos: tonoDePiel=" + tonoDePiel + ", acabado=" + acabado + ", cobertura=" + cobertura);
 
+        List<Producto> productos = repositorioProducto.recomendarPorRespuestas(
+                tonoDePiel != null ? tonoDePiel : "",
+                acabado != null ? acabado : "",
+                cobertura != null ? cobertura : ""
+        );
 
-    // Muestra resultados HTML con productos recomendados según el nombre de usuario
-    @GetMapping("/usuario/{nombreUsuario}")
-    public String mostrarRecomendacionesPorUsuario(@PathVariable String nombreUsuario, Model model) {
-        List<Producto> productos = repositorioProducto.recomendarPorUsuario(nombreUsuario);
+        // Log para verificar los productos obtenidos
+        System.out.println("Productos recomendados: " + productos);
+
         model.addAttribute("productos", productos);
-        return "results";  
+        return "results";  // Renderizar la plantilla results.html
     }
 }

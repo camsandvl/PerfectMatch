@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acabado</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><h1>Perfect Match</h1></header>
+  <form action="/param3" method="GET" class="container">
+
+    <input type="hidden" name="tonoDePiel" th:value="${param.tonoDePiel}">
+    <fieldset>
+      <legend>Que acabado prefieres en tu corrector?</legend>
+      <label><input type="radio" name="acabado" value="mate" required> Mate</label><br>
+      <label><input type="radio" name="acabado" value="luminoso"> Luminoso</label><br>
+    </fieldset>
+    <button type="submit" class="btn">Next ›</button>
+  </form>
+  <footer><p>Mensaje</p></footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cobertura</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><h1>Perfect Match</h1></header>
+  <form action="/vista/recomendaciones" method="GET" class="container">
+    <input type="hidden" name="tonoDePiel" th:value="${param.tonoDePiel}">
+    <input type="hidden" name="acabado" th:value="${param.acabado}">
+    <fieldset>
+      <legend>¿Qué cobertura prefieres?</legend>
+      <label><input type="radio" name="cobertura" value="alta" required> Alta cobertura</label><br>
+      <label><input type="radio" name="cobertura" value="media"> Cobertura media</label>
+    </fieldset>
+    <button type="submit" class="btn">Resultados</button>
+  </form>
+  <footer><p>Mensaje</p></footer>
+</body>
+</html>

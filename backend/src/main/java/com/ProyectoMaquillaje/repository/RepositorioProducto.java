@@ -1,11 +1,13 @@
 package com.ProyectoMaquillaje.repository;
 
-import org.springframework.data.neo4j.repository.Neo4jRepository;
-import org.springframework.data.neo4j.repository.query.Query;
-import com.ProyectoMaquillaje.model.Producto;
-import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.data.neo4j.repository.query.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.ProyectoMaquillaje.model.Producto;
 import com.ProyectoMaquillaje.model.Respuestas;
 
 public interface RepositorioProducto extends Neo4jRepository<Producto, Long> {
@@ -57,11 +59,12 @@ public interface RepositorioProducto extends Neo4jRepository<Producto, Long> {
     RETURN p
     """)
 List<Producto> recomendarPorUsuario(String nombreUsuario);
-@Query("""
-    MATCH (p:Producto {nombre: $nombre})
-    RETURN p
-""")
-Optional<Producto> findByNombre(@Param("nombre") String nombre);
+    @Query("""
+        MATCH (p:Producto {nombre: $nombre})
+        RETURN p
+    """)
+    Optional<Producto> findByNombre(@Param("nombre") String nombre);
+
 
 
 }
