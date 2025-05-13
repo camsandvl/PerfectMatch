@@ -1,7 +1,5 @@
 package com.ProyectoMaquillaje.model;
 
-import java.util.List;
-
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
@@ -17,6 +15,7 @@ public class Respuestas {
     private String tonoDePiel;
     private String acabado;
     private String cobertura;
+    private String tipo;
 
     @Relationship(type = "RESPONDIO", direction = Relationship.Direction.INCOMING)
     private Usuario usuario;
@@ -61,15 +60,13 @@ public class Respuestas {
         this.usuario = usuario;
     }
 
-    @Relationship(type = "RECOMIENDA", direction = Relationship.Direction.OUTGOING)
-    private List<Concelear> corrector;
 
-    public List<Concelear> getCorrector() {
-        return corrector;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setCorrector(List<Concelear> corrector) {
-        this.corrector = corrector;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 }
