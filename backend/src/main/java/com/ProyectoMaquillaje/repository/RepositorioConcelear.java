@@ -7,14 +7,14 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ProyectoMaquillaje.model.Producto;
+import com.ProyectoMaquillaje.model.Concelear;
 import com.ProyectoMaquillaje.model.Respuestas;
 
-public interface RepositorioProducto extends Neo4jRepository<Producto, Long> {
+public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
 
     @Query("""
         MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas),
-              (p:Producto)-[:TIENE_TONO]->(t:TonoDePiel),
+              (p:Concelear)-[:TIENE_TONO]->(t:TonoDePiel),
               (p)-[:TIENE_ACABADO]->(a:Acabado),
               (p)-[:TIENE_COBERTURA]->(c:Cobertura)
         WHERE
@@ -23,11 +23,11 @@ public interface RepositorioProducto extends Neo4jRepository<Producto, Long> {
             r.cobertura = c.nombre
         RETURN p
     """)
-    List<Producto> findProductosRecomendados(@Param("nombreUsuario") String nombreUsuario);
+    List<Concelear> findCorrectoresRecomendados(@Param("nombreUsuario") String nombreUsuario);
 
     @Query("""
         MATCH (r:Respuestas),
-              (p:Producto)-[:TIENE_TONO]->(t:TonoDePiel),
+              (p:Concelear)-[:TIENE_TONO]->(t:TonoDePiel),
               (p)-[:TIENE_ACABADO]->(a:Acabado),
               (p)-[:TIENE_COBERTURA]->(c:Cobertura)
         WHERE
@@ -37,33 +37,33 @@ public interface RepositorioProducto extends Neo4jRepository<Producto, Long> {
             AND r IN $respuestas
         RETURN p
     """)
-    List<Producto> findProductosRecomendados(@Param("respuestas") List<Respuestas> respuestas);
+    List<Concelear> findCorrectoresRecomendados(@Param("respuestas") List<Respuestas> respuestas);
 
     @Query("""
-    MATCH (p:Producto)
-    WHERE 
+    MATCH (p:Concelear)
+    WHERE
         p.tonoDePiel = $tonoDePiel AND
         $acabado IN p.acabado AND
         p.cobertura = $cobertura
     RETURN p
     """)
-    List<Producto> recomendarPorRespuestas(String tonoDePiel, String acabado, String cobertura);
+    List<Concelear> recomendarPorRespuestas(String tonoDePiel, String acabado, String cobertura);
 
     @Query("""
     MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas)
-    MATCH (p:Producto)
+    MATCH (p:Concelear)
     WHERE 
         p.tonoDePiel = r.tonoDePiel AND
         p.acabado = r.acabado AND
         p.cobertura = r.cobertura
     RETURN p
     """)
-List<Producto> recomendarPorUsuario(String nombreUsuario);
+List<Concelear> recomendarPorUsuario(String nombreUsuario);
     @Query("""
-        MATCH (p:Producto {nombre: $nombre})
+        MATCH (p:Concelear {nombre: $nombre})
         RETURN p
     """)
-    Optional<Producto> findByNombre(@Param("nombre") String nombre);
+    Optional<Concelear> findByNombre(@Param("nombre") String nombre);
 
 
 

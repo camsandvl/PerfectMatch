@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ProyectoMaquillaje.model.Producto;
+import com.ProyectoMaquillaje.model.Concelear;
 import com.ProyectoMaquillaje.model.Usuario;
 import com.ProyectoMaquillaje.repository.RepositorioUsuario;
 import com.ProyectoMaquillaje.service.UsuarioService;
@@ -36,7 +36,7 @@ public class ControllerUsuario {
     private UsuarioService usuarioService;
 
     @GetMapping("/{nombreUsuario}/recomendaciones")
-    public List<Producto> obtenerRecomendaciones(@PathVariable String nombreUsuario) {
-        return usuarioService.recomendarProductos(nombreUsuario);
+    public List<Concelear> obtenerRecomendaciones(@PathVariable String nombreUsuario) {
+        return usuarioService.recomendarCorrectores(nombreUsuario);
     }
 }

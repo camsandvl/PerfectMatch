@@ -1,20 +1,20 @@
 package com.ProyectoMaquillaje.data;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import com.ProyectoMaquillaje.model.Producto;
-import com.ProyectoMaquillaje.service.ProductoService;
-
-import java.util.Optional;
+import com.ProyectoMaquillaje.model.Concelear;
+import com.ProyectoMaquillaje.service.ConcelearService;
 
 @Component
-public class ProductoDataLoader {
+public class ConcelearDataLoader {
 
     @Autowired
-    private ProductoService productoService;
+    private ConcelearService concelearService;
 
     @EventListener(ContextRefreshedEvent.class)
     public void onApplicationEvent() {
@@ -38,9 +38,9 @@ public class ProductoDataLoader {
     private void guardarSiNoExiste(String nombre, String marca, String descripcion, 
                                    double precio, String tonoDePiel, 
                                    String acabado, String cobertura) {
-        Optional<Producto> existente = productoService.buscarPorNombre(nombre);
+        Optional<Concelear> existente = concelearService.buscarPorNombre(nombre);
         if (existente.isEmpty()) {
-            Producto prod = new Producto();
+            Concelear prod = new Concelear();
             prod.setNombre(nombre);
             prod.setMarca(marca);
             prod.setDescripcion(descripcion);
@@ -48,7 +48,7 @@ public class ProductoDataLoader {
             prod.setTonoDePiel(tonoDePiel);
             prod.setAcabado(acabado);
             prod.setCobertura(cobertura);
-            productoService.guardarProducto(prod);
+            concelearService.guardarCorrector(prod);
         }
     }
 }

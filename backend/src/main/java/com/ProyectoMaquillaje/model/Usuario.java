@@ -19,7 +19,7 @@ public class Usuario {
     private String password;
 
     @Relationship(type = "PREFIERE", direction = Relationship.Direction.OUTGOING)
-    private List<Producto> productos = new ArrayList<>();
+    private List<Concelear> corrector = new ArrayList<>();
 
     @Relationship(type = "RESPONDIO", direction = Relationship.Direction.OUTGOING)
     private List<Respuestas> respuestas = new ArrayList<>();
@@ -58,23 +58,21 @@ public class Usuario {
         this.respuestas = respuestas;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public List<Concelear> getCorrector() {
+        return corrector;
     }
 
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public void setCorrector(List<Concelear> corrector) {
+        this.corrector = corrector;
     }
 
     public void addRespuesta(Respuestas respuesta) {
         respuesta.setUsuario(this);  // Establece la relación inversa (muy importante)
         this.respuestas.add(respuesta);
     }
-    
-    public void addProducto(Producto producto) {
-        this.productos.add(producto);
+
+    public void addCorrector(Concelear corrector) {
+        this.corrector.add(corrector);
     }
 
-    
-    
 }
