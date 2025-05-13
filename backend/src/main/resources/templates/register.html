@@ -2,37 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sign Up</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="register-login.css">
+
+<!-- todo lo de la importacion del font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+
+
 </head>
-<body>
-  <header><h1>Perfect Match</h1></header>
-  <main class="container">
-    <h2>Crea tu cuenta</h2>
-    <form action="dashboard.html" method="GET">
-      <fieldset>
-        <label>
+<body style="background-color: white;">
+  <header>
+    <h1>Perfect Match</h1>
+  </header>
+<!-- cajita de registro-->
+  <main class="register-login-wrapper">
+    <div class="register-login-container">
+      <form action="dashboard.html" method="GET">
+        <div class="register-login-head">
+          <span>Sign up</span>
+          <p>Crea tu cuenta</p>
+        </div>
 
-        <!--Solo se puede-->
-          Username:<br>
-          <input type="text" name="username" required>
-        </label><br><br>
-        <label>
-          Password:<br>
-          <input type="password" name="password" required>
-        </label>
-      </fieldset>
+        <div class="register-login-inputs">
+          <input type="text" name="username" placeholder="Username" required>
+          <input type="password" name="password" placeholder="Password" required>
+        </div>
 
-       <!--El user va a ingresar la login form, se va al java controller, java revisa si el username 
-       esta en la databse y si matchea la password, si hay error java lo redirectea a register.html y
-       le enseña el mensaje de error, para eso usamos thymeleaf para mostrar el mensaje solo cuando es necesario-->
 
-      <p style="color: rgb(223, 102, 102);">Incorrect username or password.</p>
+        <button type="submit">Sign up</button>
+      </form>
 
-      <button type="submit" class="btn">Next ›</button>
-    </form>
+      <div class="register-login-footer">
+        <p>Ya tienes una cuenta? <a href="login.html">Log in</a></p>
+      </div>
+    </div>
   </main>
-  <footer><p>Mensaje</p></footer>
+
+  
 </body>
 </html>
