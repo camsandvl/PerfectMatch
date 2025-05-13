@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ProyectoMaquillaje.model.Producto;
-import com.ProyectoMaquillaje.repository.RepositorioProducto;
+import com.ProyectoMaquillaje.model.Concelear;
+import com.ProyectoMaquillaje.repository.RepositorioConcelear;
 
 @Controller
 @RequestMapping("/vista")
 public class ControllerVistaRecomendacion {
 
     @Autowired
-    private RepositorioProducto repositorioProducto;
+    private RepositorioConcelear repositorioConcelear;
 
     // Muestra resultados HTML con productos recomendados según las respuestas
     @GetMapping("/recomendaciones")
@@ -30,16 +30,16 @@ public class ControllerVistaRecomendacion {
         // Log para verificar los parámetros recibidos
         System.out.println("Parámetros recibidos: tonoDePiel=" + tonoDePiel + ", acabado=" + acabado + ", cobertura=" + cobertura);
 
-        List<Producto> productos = repositorioProducto.recomendarPorRespuestas(
+        List<Concelear> correctores = repositorioConcelear.recomendarPorRespuestas(
                 tonoDePiel != null ? tonoDePiel : "",
                 acabado != null ? acabado : "",
                 cobertura != null ? cobertura : ""
         );
 
         // Log para verificar los productos obtenidos
-        System.out.println("Productos recomendados: " + productos);
+        System.out.println("Correctores recomendados: " + correctores);
 
-        model.addAttribute("productos", productos);
+        model.addAttribute("productos", correctores);
         return "results";  // Renderizar la plantilla results.html
     }
 }

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ProyectoMaquillaje.model.Producto;
-import com.ProyectoMaquillaje.repository.RepositorioProducto;
+import com.ProyectoMaquillaje.model.Concelear;
+import com.ProyectoMaquillaje.repository.RepositorioConcelear;
 
 @RestController
 @RequestMapping("/api/recomendaciones")
@@ -18,19 +18,19 @@ import com.ProyectoMaquillaje.repository.RepositorioProducto;
 public class ControllerRecomendacion {
 
     @Autowired
-    private RepositorioProducto repositorioProducto;
+    private RepositorioConcelear repositorioConcelear;
 
     // Este endpoint devuelve productos recomendados según las respuestas del usuario
     @GetMapping("/{tonoDePiel}/{acabado}/{cobertura}")
-    public List<Producto> recomendarProductos(
+    public List<Concelear> recomendarCorrectores(
             @PathVariable String tonoDePiel,
             @PathVariable String acabado,
             @PathVariable String cobertura) {
-        return repositorioProducto.recomendarPorRespuestas(tonoDePiel, acabado, cobertura);
+        return repositorioConcelear.recomendarPorRespuestas(tonoDePiel, acabado, cobertura);
     }
 
     @GetMapping("/usuario/{nombreUsuario}")
-    public List<Producto> recomendarProductosPorUsuario(@PathVariable String nombreUsuario) {
-    return repositorioProducto.recomendarPorUsuario(nombreUsuario);
+    public List<Concelear> recomendarCorrectoresPorUsuario(@PathVariable String nombreUsuario) {
+        return repositorioConcelear.recomendarPorUsuario(nombreUsuario);
     }
 }

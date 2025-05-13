@@ -62,15 +62,14 @@ public class Respuestas {
     }
 
     @Relationship(type = "RECOMIENDA", direction = Relationship.Direction.OUTGOING)
-    private List<Producto> productos;
+    private List<Concelear> corrector;
 
-    public List<Producto> getProductos() {
-        return productos;
+    public List<Concelear> getCorrector() {
+        return corrector;
     }
-    
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+
+    public void setCorrector(List<Concelear> corrector) {
+        this.corrector = corrector;
     }
-    
 
 }

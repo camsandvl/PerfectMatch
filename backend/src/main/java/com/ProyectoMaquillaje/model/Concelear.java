@@ -4,8 +4,8 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
-@Node("Producto")
-public class Producto {
+@Node("Concelear")
+public class Concelear {
 
     @Id
     @GeneratedValue
