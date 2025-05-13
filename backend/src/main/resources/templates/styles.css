@@ -1,0 +1,127 @@
+/* Nuevos styles porque los pasados estan feos*/
+.text-container h2 {
+  font-size: 24px;         
+  color: #ffffff;          
+  font-family: "Cal Sans", sans-serif;  
+  font-weight: 500;        /* thickness */
+  margin-top: 0.5rem;     
+}
+
+ .title-btn {
+ padding-left: 33px;
+ padding-right: 33px;
+ padding-bottom: 12px;
+ padding-top: 12px;
+ border-radius: 9px;
+ background:#ff69b4; 
+ border: none;
+ font-family: "Cal Sans", sans-serif;  
+ text-align: center;
+ cursor: pointer;
+ transition: 0.4s;
+ color: white;
+ text-decoration: none;
+ display: inline-block;
+}
+
+.title-btn:hover {
+ box-shadow: 7px 5px 56px -14px #b4035b; 
+}
+
+.title-btn:active {
+ transform: scale(0.97);
+ box-shadow: 7px 5px 56px -10px #b4035b;
+}
+
+.logo-container {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 200; /* make sure it's on top */
+}
+
+.logo-img {
+  width: 50px; /* adjust as needed */
+  height: auto;
+}
+
+
+
+
+
+
+
+
+
+:root {
+    --white: #ffffff;
+    --light-pink: #fdc9df;
+    --dark-pink: #ff69b4;
+    --gray: #828179;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+
+
+  
+  body {
+    margin: 0;
+    background: var(--white);
+    color: var(--gray);
+    font-family: sans-serif;
+  }
+  
+  header, footer {
+    font-family: "Cal Sans", sans-serif;
+    font-size: 10px;
+    background: var(--light-pink);
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0;
+    padding: 1rem;
+  }
+
+  
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    background: var(--dark-pink);
+    color: var(--white);
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  fieldset {
+    border: none;
+    margin-bottom: 1rem;
+  }
+  
+  .results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .card {
+    flex: 1 1 calc(45% - 1rem);
+    background: var(--light-pink);
+    border: 1px solid var(--light-pink);
+    border-radius: 1rem;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .card img {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
