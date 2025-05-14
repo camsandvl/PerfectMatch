@@ -126,7 +126,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem; /* This controls spacing between subtitle and cards */
+  gap: 1.5em; /* This controls spacing between subtitle and cards */
   width: 100%;
   max-width: 1000px;
 }
