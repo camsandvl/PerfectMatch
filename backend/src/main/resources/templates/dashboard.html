@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+
+
+   <!-- todo lo de la importacion del font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+
+</head>
+
+<body style="background-color: white; margin:0;">
+  <!-- Header hasta arriba en la esquina -->
+  <header class="dashboard-header">
+    <h1>Perfect Match</h1>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="dashboard-content">
+    <h2 class="dashboard-subtitle">¿Qué quieres que te recomendemos?</h2>
+    <!-- tres quiz cards -->
+    <div class="dashboard-cards">
+      <div class="dashboard-card">
+        <img src="img/quiz1.png" alt="Quiz 1" class="card-img">
+        <div class="card-details">
+          <p class="text-title">Corrector</p>
+          <p class="text-body">Description for quiz one.</p>
+        </div>
+        <button class="card-button" onclick="location.href='quiz1.html'">toma el quiz</button>
+      </div>
+      <div class="dashboard-card">
+         <img src="img/quiz2.png" alt="Quiz 2" class="card-img">
+        <div class="card-details">
+          <p class="text-title">Rubor</p>
+          <p class="text-body">Description for quiz two.</p>
+        </div>
+        <button class="card-button" onclick="location.href='quiz2.html'">toma el quiz</button>
+      </div>
+      <div class="dashboard-card">
+         <img src="img/quiz3.png" alt="Quiz 3" class="card-img">
+        <div class="card-details">
+          <p class="text-title">Rimel</p>
+          <p class="text-body">Description for quiz three.</p>
+        </div>
+        <button class="card-button" onclick="location.href='quiz3.html'">toma el quiz</button>
+      </div>
+    </div>
+    </section>
+  </main>
+</body>
+</html>
