@@ -20,9 +20,24 @@ public class ControllerRespuestas {
 
     @Autowired
     private RepositorioRespuestas repositorioRespuestas;
-
-    @PostMapping("/guardar")
+    //concelear
+    @PostMapping("/guardar-concelear")
     public Respuestas guardarRespuestas(@RequestBody Respuestas respuestas) {
+        respuestas.setTipo("concelear");
+        return repositorioRespuestas.save(respuestas);
+    }
+
+    //blush
+    @PostMapping("/guardar-blush")
+    public Respuestas guardarRespuestasBlush(@RequestBody Respuestas respuestas) {
+        respuestas.setTipo("blush");
+        return repositorioRespuestas.save(respuestas);
+    }
+
+    // rimel
+    @PostMapping("/guardar-rimel")
+    public Respuestas guardarRespuestasRimel(@RequestBody Respuestas respuestas) {
+        respuestas.setTipo("rimel");
         return repositorioRespuestas.save(respuestas);
     }
 

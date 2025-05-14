@@ -23,17 +23,20 @@ public class UsuarioService {
 
     // Registrar usuario con sus respuestas correctamente
     public Usuario registrarUsuario(Usuario usuario) {
-    if (usuario.getRespuestas() != null) {
-        // Crear una copia de las respuestas para evitar modificar la lista original durante la iteración
-        List<Respuestas> respuestas = new ArrayList<>(usuario.getRespuestas());
-        for (Respuestas respuesta : respuestas) {
-            usuario.addRespuesta(respuesta); 
-            List<Concelear> correctoresRecomendados = obtenerCorrectoresSegunRespuesta(respuesta);
-            respuesta.setCorrector(correctoresRecomendados);
+        if (usuario.getRespuestas() != null) {
+            List<Respuestas> respuestas = new ArrayList<>(usuario.getRespuestas());
+            for (Respuestas respuesta : respuestas) {
+                usuario.addRespuesta(respuesta); 
+                // Ya NO necesitas: respuesta.setCorrector(correctoresRecomendados);
+                // Si quieres, aquí puedes crear la relación PREFIERE entre usuario y correctores:
+                List<Concelear> correctoresRecomendados = obtenerCorrectoresSegunRespuesta(respuesta);
+                for (Concelear corrector : correctoresRecomendados) {
+                    usuario.addCorrector(corrector); // Relaciona correctores con usuario
+                }
+            }
         }
+        return repositorioUsuario.save(usuario);
     }
-    return repositorioUsuario.save(usuario);
-}
 
     // Registrar usuario y productos recomendados
     public Usuario registrarUsuarioConCorrectores(Usuario usuario, List<Concelear> correctores) {
