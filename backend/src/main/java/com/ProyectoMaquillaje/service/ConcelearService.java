@@ -22,6 +22,7 @@ public class ConcelearService {
     public List<Concelear> obtenerTodosLosCorrectores() {
         return repositorioConcelear.findAll();
     }
+    
     public Optional<Concelear> buscarPorNombre(String nombre) {
         return repositorioConcelear.findByNombre(nombre);
     }

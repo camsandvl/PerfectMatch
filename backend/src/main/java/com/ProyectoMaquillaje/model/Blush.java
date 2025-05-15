@@ -12,11 +12,10 @@ public class Blush {
 
     private String nombre;
     private String marca;
-    private String tonoDePiel;
     private String descripcion;
     private double precio;
     private String acabado;
-    private String presentacion; // polvo, barra, crema
+    private String presentacion; // polvo, crema, liquido
     private String tonoBlush;
 
     public String getDescripcion() {
@@ -49,14 +48,6 @@ public class Blush {
 
     public void setMarca(String marca) {
         this.marca = marca;
-    }
-
-    public String getTonoDePiel() {
-        return tonoDePiel;
-    }
-
-    public void setTonoDePiel(String tono) {
-        this.tonoDePiel = tono;
     }
 
     public double getPrecio() {

@@ -25,27 +25,26 @@ public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
     """)
     List<Concelear> findCorrectoresRecomendados(@Param("nombreUsuario") String nombreUsuario);
 
+    //solo en lo que no está la implementación de usuario
     @Query("""
-        MATCH (r:Respuestas),
-              (p:Concelear)-[:TIENE_TONO]->(t:TonoDePiel),
-              (p)-[:TIENE_ACABADO]->(a:Acabado),
-              (p)-[:TIENE_COBERTURA]->(c:Cobertura)
+        MATCH (r:Respuestas),(c:Concelear)
         WHERE
-            r.tonoDePiel = t.nombre AND
-            r.acabado = a.nombre AND
-            r.cobertura = c.nombre
-            AND r IN $respuestas
-        RETURN p
+            c.tonoDePiel = r.tonoDePiel AND
+            c.acabado = r.acabado AND
+            c.cobertura = r.cobertura AND
+            r IN $respuestas
+        RETURN c
     """)
     List<Concelear> findCorrectoresRecomendados(@Param("respuestas") List<Respuestas> respuestas);
 
+    //solo en lo que no está la implementación de usuario
     @Query("""
-    MATCH (p:Concelear)
+    MATCH (c:Concelear)
     WHERE
-        p.tonoDePiel = $tonoDePiel AND
-        $acabado IN p.acabado AND
-        p.cobertura = $cobertura
-    RETURN p
+        c.tonoDePiel = $tonoDePiel AND
+        $acabado IN c.acabado AND
+        c.cobertura = $cobertura
+    RETURN c
     """)
     List<Concelear> recomendarPorRespuestas(String tonoDePiel, String acabado, String cobertura);
 
@@ -58,7 +57,9 @@ public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
         p.cobertura = r.cobertura
     RETURN p
     """)
-List<Concelear> recomendarPorUsuario(String nombreUsuario);
+    List<Concelear> recomendarPorUsuario(String nombreUsuario);
+
+
     @Query("""
         MATCH (p:Concelear {nombre: $nombre})
         RETURN p
