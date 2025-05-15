@@ -11,7 +11,7 @@ import com.ProyectoMaquillaje.model.Concelear;
 import com.ProyectoMaquillaje.service.ConcelearService;
 
 @Component
-public class ProductosDataLoader {
+public class ConcelearDataLoader {
 
     @Autowired
     private ConcelearService concelearService;
