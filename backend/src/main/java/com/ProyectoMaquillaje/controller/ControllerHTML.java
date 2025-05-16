@@ -24,4 +24,11 @@ public class ControllerHTML {
     public String mostrarParam3() {
         return "param3"; 
     }
+
+    /* CAMBIAR ACA PARA QUIZ SELECT
+     * @GetMapping("/quiz-select")
+    public String mostrarQuizSelect() {
+    return "quiz-select";
+}
+     */
 }
