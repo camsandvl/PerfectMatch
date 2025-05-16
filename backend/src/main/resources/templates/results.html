@@ -10,10 +10,12 @@
     <h1>Productos recomendados</h1>
     <ul>
         <li th:each="producto : ${productos}">
-            <strong th:text="${producto.nombre}"></strong> - 
-            <span th:text="${producto.descripcion}"></span>
+            <strong th:text="${producto.nombre}"></strong> -
+            <span th:text="${producto.marca}"></span> -
+            <span th:text="${producto.descripcion}"></span> -
+            <span th:text="'$' + ${producto.precio}"></span>
         </li>
     </ul>
-    <a href="index.html" class="btn">Volver al inicio!</a>
+    <a href="/dashboard" class="btn">Volver al inicio!</a>
 </body>
 </html>
