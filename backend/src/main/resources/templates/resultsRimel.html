@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header><h1>Perfect Match</h1></header>
+    <h1>Productos recomendados</h1>
+    <ul>
+        <li th:each="producto : ${productos}">
+            <strong th:text="${producto.nombre}"></strong> -
+            <span th:text="${producto.marca}"></span> -
+            <span th:text="${producto.descripcion}"></span> -
+            <span th:text="'$' + ${producto.precio}"></span>
+        </li>
+    </ul>
+    <a href="/dashboard" class="btn">Volver al inicio!</a>
+</body>
+</html>
