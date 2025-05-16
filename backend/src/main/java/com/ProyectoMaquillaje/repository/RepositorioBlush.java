@@ -39,13 +39,12 @@ public interface RepositorioBlush extends Neo4jRepository<Blush, Long> {
     @Query("""
         MATCH (b:Blush)
         WHERE
-            b.tonoDePiel = $tonoDePiel AND
             b.acabado = $acabado AND
             b.presentacion = $presentacion AND
             b.tonoBlush = $tonoBlush
         RETURN b
     """)
-    List<Blush> recomendarPorRespuestas(String tonoDePiel, String acabado);
+    List<Blush> recomendarPorRespuestas(String acabado, String presentacion, String tonoBlush);
 
     @Query("""
     MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas)

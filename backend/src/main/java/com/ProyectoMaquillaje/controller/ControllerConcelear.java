@@ -13,14 +13,14 @@ import com.ProyectoMaquillaje.model.Concelear;
 import com.ProyectoMaquillaje.repository.RepositorioConcelear;
 
 @RestController
-@RequestMapping("/api/recomendaciones")
+@RequestMapping("/api/concelear")
 @CrossOrigin(origins = "*")
-public class ControllerRecomendacion {
+public class ControllerConcelear {
 
     @Autowired
     private RepositorioConcelear repositorioConcelear;
 
-    // Este endpoint devuelve productos recomendados según las respuestas del usuario
+    //endpoint para recomendar correctores por parámetros
     @GetMapping("/{tonoDePiel}/{acabado}/{cobertura}")
     public List<Concelear> recomendarCorrectores(
             @PathVariable String tonoDePiel,

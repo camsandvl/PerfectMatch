@@ -5,10 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 
 import com.ProyectoMaquillaje.model.Blush;
 import com.ProyectoMaquillaje.service.BlushService;
 
+@Component
 public class BlushDataLoader {
     @Autowired
     private BlushService blushService;
