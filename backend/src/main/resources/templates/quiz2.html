@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Blush</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header><h1>Perfect Match</h1></header>
+  <div id="step1" class="quiz-step">
+    <form onsubmit="event.preventDefault(); nextStep('acabado')">
+      <fieldset>
+        <legend>¿Qué acabado prefieres en tu blush?</legend>
+        <label><input type="radio" name="acabado" value="mate" required> Mate</label><br>
+        <label><input type="radio" name="acabado" value="luminoso"> Luminoso</label>
+      </fieldset>
+      <button type="submit" class="btn">Siguiente</button>
+    </form>
+  </div>
+  <div id="step2" class="quiz-step" style="display:none;">
+    <form onsubmit="event.preventDefault(); nextStep('presentacion')">
+      <fieldset>
+        <legend>¿Qué presentación prefieres?</legend>
+        <label><input type="radio" name="presentacion" value="polvo" required> Polvo</label><br>
+        <label><input type="radio" name="presentacion" value="crema"> Crema</label><br>
+        <label><input type="radio" name="presentacion" value="liquido"> Líquido</label>
+      </fieldset>
+      <button type="submit" class="btn">Siguiente</button>
+    </form>
+  </div>
+  <div id="step3" class="quiz-step" style="display:none;">
+    <form onsubmit="event.preventDefault(); finishQuiz()">
+      <fieldset>
+        <legend>¿Qué tono prefieres?</legend>
+        <label><input type="radio" name="tonoBlush" value="rosado" required> Rosado</label><br>
+        <label><input type="radio" name="tonoBlush" value="rojo"> Rojo</label><br>
+        <label><input type="radio" name="tonoBlush" value="morado"> Morado</label>
+      </fieldset>
+      <button type="submit" class="btn">Ver resultados</button>
+    </form>
+  </div>
+  <script>
+    let respuestas = {};
+    function nextStep(param) {
+      const step = param === 'acabado' ? 1 : param === 'presentacion' ? 2 : 3;
+      const value = document.querySelector(`#step${step} input[name="${param}"]:checked`).value;
+      respuestas[param] = value;
+      document.getElementById(`step${step}`).style.display = 'none';
+      document.getElementById(`step${step+1}`).style.display = 'block';
+    }
+    function finishQuiz() {
+      const value = document.querySelector('#step3 input[name="tonoBlush"]:checked').value;
+      respuestas['tonoBlush'] = value;
+      window.location.href = `/vista/recomendaciones-blush?acabado=${respuestas.acabado}&presentacion=${respuestas.presentacion}&tonoBlush=${respuestas.tonoBlush}`;
+    }
+  </script>
+</body>
+</html>

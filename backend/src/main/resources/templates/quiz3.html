@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Rimel</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header><h1>Perfect Match</h1></header>
+  <div id="step1" class="quiz-step">
+    <form onsubmit="event.preventDefault(); nextStep('color')">
+      <fieldset>
+        <legend>¿Qué color de rimel prefieres?</legend>
+        <label><input type="radio" name="color" value="negro" required> Negro</label><br>
+        <label><input type="radio" name="color" value="azul"> Azul</label><br>
+        <label><input type="radio" name="color" value="transparente"> Transparente</label>
+      </fieldset>
+      <button type="submit" class="btn">Siguiente</button>
+    </form>
+  </div>
+  <div id="step2" class="quiz-step" style="display:none;">
+    <form onsubmit="event.preventDefault(); nextStep('waterproof')">
+      <fieldset>
+        <legend>¿Quieres que sea waterproof?</legend>
+        <label><input type="radio" name="waterproof" value="true" required> Sí</label><br>
+        <label><input type="radio" name="waterproof" value="false"> No</label>
+      </fieldset>
+      <button type="submit" class="btn">Siguiente</button>
+    </form>
+  </div>
+  <div id="step3" class="quiz-step" style="display:none;">
+    <form onsubmit="event.preventDefault(); finishQuiz()">
+      <fieldset>
+        <legend>¿Qué función prefieres?</legend>
+        <label><input type="radio" name="funcion" value="alargar" required> Alargar</label><br>
+        <label><input type="radio" name="funcion" value="dar volumen"> Dar volumen</label>
+      </fieldset>
+      <button type="submit" class="btn">Ver resultados</button>
+    </form>
+  </div>
+  <script>
+    let respuestas = {};
+    function nextStep(param) {
+      const step = param === 'color' ? 1 : param === 'waterproof' ? 2 : 3;
+      const value = document.querySelector(`#step${step} input[name="${param}"]:checked`).value;
+      respuestas[param] = value;
+      document.getElementById(`step${step}`).style.display = 'none';
+      document.getElementById(`step${step+1}`).style.display = 'block';
+    }
+    function finishQuiz() {
+      const value = document.querySelector('#step3 input[name="funcion"]:checked').value;
+      respuestas['funcion'] = value;
+      window.location.href = `/vista/recomendaciones-rimel?color=${respuestas.color}&waterproof=${respuestas.waterproof}&funcion=${respuestas.funcion}`;
+    }
+  </script>
+</body>
+</html>

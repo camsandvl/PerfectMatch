@@ -10,19 +10,30 @@ public class ControllerHTML {
     public String mostrarIndex() {
         return "index"; 
     }
-    @GetMapping("/param1")
-    public String mostrarParam1() {
-        return "param1"; 
+    
+    @GetMapping("/quiz1")
+    public String mostrarQuiz1() {
+    return "quiz1";
     }
 
-    @GetMapping("/param2")
-    public String mostrarParam2() {
-        return "param2"; 
+    @GetMapping("/quiz2")
+    public String mostrarQuiz2() {
+    return "quiz2";
     }
 
-    @GetMapping("/param3")
-    public String mostrarParam3() {
-        return "param3"; 
+    @GetMapping("/quiz3")
+    public String mostrarQuiz3() {
+    return "quiz3";
+    }
+
+    @GetMapping("/login")
+    public String mostrarLogin() {
+    return "login";
+    }
+
+    @GetMapping("/dashboard")
+    public String mostrarDashboard() {
+    return "dashboard";
     }
 
     /* CAMBIAR ACA PARA QUIZ SELECT
