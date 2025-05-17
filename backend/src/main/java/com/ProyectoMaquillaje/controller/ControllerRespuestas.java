@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ProyectoMaquillaje.model.Respuestas;
+import com.ProyectoMaquillaje.model.Usuario;
 import com.ProyectoMaquillaje.repository.RepositorioRespuestas;
+import com.ProyectoMaquillaje.repository.RepositorioUsuario;
 
 @RestController
 @RequestMapping("/api/respuestas")
@@ -20,16 +22,26 @@ public class ControllerRespuestas {
 
     @Autowired
     private RepositorioRespuestas repositorioRespuestas;
-    //concelear
+
+    @Autowired
+    private RepositorioUsuario usuarioRepository;
+
+    // concelear
     @PostMapping("/guardar-concelear")
     public Respuestas guardarRespuestas(@RequestBody Respuestas respuestas) {
+        Usuario usuario = usuarioRepository.findByNombre(respuestas.getUsuario().getNombre())
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        respuestas.setUsuario(usuario); 
         respuestas.setTipo("concelear");
         return repositorioRespuestas.save(respuestas);
     }
 
-    //blush
+    // blush
     @PostMapping("/guardar-blush")
     public Respuestas guardarRespuestasBlush(@RequestBody Respuestas respuestas) {
+        Usuario usuario = usuarioRepository.findByNombre(respuestas.getUsuario().getNombre())
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        respuestas.setUsuario(usuario); 
         respuestas.setTipo("blush");
         return repositorioRespuestas.save(respuestas);
     }
@@ -37,6 +49,9 @@ public class ControllerRespuestas {
     // rimel
     @PostMapping("/guardar-rimel")
     public Respuestas guardarRespuestasRimel(@RequestBody Respuestas respuestas) {
+        Usuario usuario = usuarioRepository.findByNombre(respuestas.getUsuario().getNombre())
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        respuestas.setUsuario(usuario);
         respuestas.setTipo("rimel");
         return repositorioRespuestas.save(respuestas);
     }
