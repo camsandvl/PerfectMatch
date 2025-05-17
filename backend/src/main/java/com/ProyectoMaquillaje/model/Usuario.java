@@ -20,6 +20,20 @@ public class Usuario {
 
     @Relationship(type = "PREFIERE", direction = Relationship.Direction.OUTGOING)
     private List<Concelear> corrector = new ArrayList<>();
+    
+    @Relationship(type = "PREFIERE", direction = Relationship.Direction.OUTGOING)
+    private List<Blush> blushes = new ArrayList<>();
+
+    @Relationship(type = "PREFIERE", direction = Relationship.Direction.OUTGOING)
+    private List<Rimel> rimels = new ArrayList<>();
+
+    public List<Blush> getBlushes() { return blushes; }
+    public void setBlushes(List<Blush> blushes) { this.blushes = blushes; }
+    public void addBlush(Blush blush) { this.blushes.add(blush); }
+
+    public List<Rimel> getRimels() { return rimels; }
+    public void setRimels(List<Rimel> rimels) { this.rimels = rimels; }
+    public void addRimel(Rimel rimel) { this.rimels.add(rimel); }
 
     @Relationship(type = "RESPONDIO", direction = Relationship.Direction.OUTGOING)
     private List<Respuestas> respuestas = new ArrayList<>();

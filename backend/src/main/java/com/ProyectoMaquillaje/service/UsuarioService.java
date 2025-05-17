@@ -7,10 +7,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ProyectoMaquillaje.model.Blush;
 import com.ProyectoMaquillaje.model.Concelear;
 import com.ProyectoMaquillaje.model.Respuestas;
+import com.ProyectoMaquillaje.model.Rimel;
 import com.ProyectoMaquillaje.model.Usuario;
+import com.ProyectoMaquillaje.repository.RepositorioBlush;
 import com.ProyectoMaquillaje.repository.RepositorioConcelear;
+import com.ProyectoMaquillaje.repository.RepositorioRimel;
 import com.ProyectoMaquillaje.repository.RepositorioUsuario;
 
 @Service
@@ -20,6 +24,10 @@ public class UsuarioService {
     private RepositorioUsuario repositorioUsuario;
     @Autowired
     private RepositorioConcelear repositorioConcelear;
+    @Autowired
+    private RepositorioBlush repositorioBlush;
+    @Autowired
+    private RepositorioRimel repositorioRimel;
 
     // Registrar usuario con sus respuestas correctamente
     public Usuario registrarUsuario(Usuario usuario) {
@@ -58,24 +66,44 @@ public class UsuarioService {
         return repositorioUsuario.findByNombre(nombre);
     }
 
-    // Recomendar productos automáticamente en base a las respuestas del usuario
+    // recomendar productos automáticamente en base a las respuestas del usuario
     public List<Concelear> recomendarCorrectores(String nombreUsuario) {
-        // Buscar el usuario por nombre
+        // buscar el usuario por nombre
         Usuario usuario = repositorioUsuario.findByNombre(nombreUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        // Buscar productos que coincidan con las respuestas del usuario
+        // buscar productos que coincidan con las respuestas del usuario
         List<Concelear> correctoresRecomendados = repositorioConcelear.findCorrectoresRecomendados(nombreUsuario);
-
-        // Crear explícitamente las relaciones PREFIERE en Neo4j
+        // crear explícitamente las relaciones PREFIERE en Neo4j
         for (Concelear corrector : correctoresRecomendados) {
             usuario.addCorrector(corrector); // Agregar corrector a la lista
         }
-
-        // Guardar el usuario con las relaciones PREFIERE
+        // guardar el usuario con las relaciones PREFIERE
         repositorioUsuario.save(usuario);
-
         return correctoresRecomendados;
+    }
+
+    // recomendar blush
+    public List<Blush> recomendarBlushes(String nombreUsuario) {
+        Usuario usuario = repositorioUsuario.findByNombre(nombreUsuario)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        List<Blush> blushesRecomendados = repositorioBlush.recomendarPorUsuario(nombreUsuario);
+        for (Blush blush : blushesRecomendados) {
+            usuario.addBlush(blush);
+        }
+        repositorioUsuario.save(usuario);
+        return blushesRecomendados;
+    }
+
+    // recomendar rimel
+    public List<Rimel> recomendarRimels(String nombreUsuario) {
+        Usuario usuario = repositorioUsuario.findByNombre(nombreUsuario)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        List<Rimel> rimelsRecomendados = repositorioRimel.recomendarPorUsuario(nombreUsuario);
+        for (Rimel rimel : rimelsRecomendados) {
+            usuario.addRimel(rimel);
+        }
+        repositorioUsuario.save(usuario);
+        return rimelsRecomendados;
     }
 
     private List<Concelear> obtenerCorrectoresSegunRespuesta(Respuestas respuesta) {
