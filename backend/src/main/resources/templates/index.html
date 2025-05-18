@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfect Match</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="background.css"> 
-  <link rel="stylesheet" href="title.css">
+  <link rel="stylesheet" href="../static/index.css">
+  <link rel="stylesheet" href="../static/background.css"> 
 
   <!-- todo lo de la importacion del font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,56 +14,96 @@
 
 </head>
 <body>
-  <div class="logo-container">
-    <img src="/path/to/your-logo.png" alt="Logo" class="logo-img">
-  </div>
+  <div class="page-container">
+    <!-- primera sección con el gradiente hasta abajo-->
+    <section class="first-section">
+      <div class="logo-container">
+        <img src="/path/to/your-logo.png" alt="Logo" class="logo-img">
+      </div>
 
-  <!-- todo del fondo con los colorcitos -->
-  <div class="gradient-bg">
-    <svg xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="goo">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
-          <feBlend in="SourceGraphic" in2="goo" />
-        </filter>
-      </defs>
-    </svg>
-    <div class="gradients-container">
-      <div class="g1"></div>
-      <div class="g2"></div>
-      <div class="g3"></div>
-      <div class="g4"></div>
-      <div class="g5"></div>
-      <div class="interactive"></div>
-    </div>
-  </div>
+      <!-- todo del fondo con los colorcitos -->
+      <div class="gradient-bg">
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+              <feBlend in="SourceGraphic" in2="goo" />
+            </filter>
+          </defs>
+        </svg>
+        <div class="gradients-container">
+          <div class="g1"></div>
+          <div class="g2"></div>
+          <div class="g3"></div>
+          <div class="g4"></div>
+          <div class="g5"></div>
+          <div class="interactive"></div>
+        </div>
+      </div>
 
- <!-- contenido principal encima del fondo -->
-  <div class="text-container">
-    <main class="container">
-    
-        <!-- titulo que cambia las palabras -->
-        <div class="title-card">
-          <div class="loader">
-            Your Perfect
-            <div class="words">
-              <span class="word">concealer</span>
-              <span class="word">mascara</span>
-              <span class="word">blush</span>
-              <span class="fixedword">Match</span>
+      <!-- contenido principal encima del fondo -->
+      <div class="text-container">
+        <main class="container">
+          <!-- titulo que cambia las palabras -->
+          <div class="title-card">
+            <div class="loader">
+              Your Perfect
+              <div class="words">
+                <span class="word">concealer</span>
+                <span class="word">mascara</span>
+                <span class="word">blush</span>
+                <span class="fixedword">Match</span>
+              </div>
+            </div>
+          </div>
+          
+          <h2>Descubre tu combinación perfecta de maquillaje</h2>
+          <a href="/login" class="title-btn">Get started</a>
+        </main>
+      </div>
+      
+      <!-- el fade a blanco al fondo-->
+      <div class="gradient-fade"></div>
+    </section>
+
+    <!--sección de como funciona -->
+    <section class="how-it-works-section">
+      <div class="how-it-works-content">
+        <h2 class="how-it-works-title">Como Perfect Match funciona</h2>
+        
+        <div class="steps-container">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3 class="step-title">Toma nuestro quiz</h3>
+              <p class="step-description">Responde algunas preguntas sobre tus preferencias de maquillaje y tus makeup goals.</p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3 class="step-title">Obtiene recomendaciones personalizadas</h3>
+              <p class="step-description">Nuestro algoritmo analiza tus respuestas para encontrar tus recomendaciones perfectas de maquillaje.</p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3 class="step-title">Encuentra tus productos perfectos</h3>
+              <p class="step-description">Recibe una selección curada de productos de maquillaje perfectos para ti.</p>
             </div>
           </div>
         </div>
-      
-
-      <h2>Descubre tu combinación perfecta de maquillaje</h2>
-      <a href="/login" class="title-btn">Get started</a>
-    </main>
+        
+        <a href="/login" class="title-btn">Get started</a>
+      </div>
+    </section>
   </div>
 
   <script>
-
     // Movimiento del círculo interactivo
     document.addEventListener('DOMContentLoaded', () => {
       const interBubble = document.querySelector('.interactive');
