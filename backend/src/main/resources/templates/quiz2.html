@@ -2,52 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Blush</title>
-  <link rel="stylesheet" href="../static/styles.css">
+  <link rel="stylesheet" href="../static/quizzes.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
   <header><h1>Perfect Match</h1></header>
-  <div id="step1" class="quiz-step">
-    <form onsubmit="event.preventDefault(); nextStep('acabado')">
-      <fieldset>
-        <legend>¿Qué acabado prefieres en tu blush?</legend>
-        <label><input type="radio" name="acabado" value="mate" required> Mate</label><br>
-        <label><input type="radio" name="acabado" value="luminoso"> Luminoso</label>
-      </fieldset>
-      <button type="submit" class="btn">Siguiente</button>
-    </form>
+  
+  <div class="quiz-container">
+    <div class="quiz-image-section">
+      <img src="../static/img/quiz2.png" alt="Blush Quiz" class="quiz-image">
+    </div>
+    
+    <div class="quiz-content">
+      <h2 class="quiz-title">Encuentra tu blush ideal</h2>
+      <p class="quiz-description">Responde estas preguntas para ayudarnos a encontrar el blush perfecto para ti.</p>
+      
+      <div class="quiz-progress">
+        <div class="progress-step active" id="step-indicator-1"></div>
+        <div class="progress-step" id="step-indicator-2"></div>
+        <div class="progress-step" id="step-indicator-3"></div>
+      </div>
+      
+      <div id="step1" class="quiz-step">
+        <form onsubmit="event.preventDefault(); nextStep('acabado')">
+          <fieldset>
+            <legend>¿Qué acabado prefieres en tu blush?</legend>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="acabado-mate" name="acabado" value="mate" required>
+                <label for="acabado-mate" class="radio-label">Mate</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="acabado-luminoso" name="acabado" value="luminoso">
+                <label for="acabado-luminoso" class="radio-label">Luminoso</label>
+              </div>
+            </div>
+          </fieldset>
+          <button type="submit" class="btn">Siguiente</button>
+        </form>
+      </div>
+      
+      <div id="step2" class="quiz-step" style="display:none;">
+        <form onsubmit="event.preventDefault(); nextStep('presentacion')">
+          <fieldset>
+            <legend>¿Qué presentación prefieres?</legend>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="presentacion-polvo" name="presentacion" value="polvo" required>
+                <label for="presentacion-polvo" class="radio-label">Polvo</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="presentacion-crema" name="presentacion" value="crema">
+                <label for="presentacion-crema" class="radio-label">Crema</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="presentacion-liquido" name="presentacion" value="liquido">
+                <label for="presentacion-liquido" class="radio-label">Líquido</label>
+              </div>
+            </div>
+          </fieldset>
+          <div class="quiz-navigation">
+            <button type="button" class="btn btn-back" onclick="goBack(1)">Atrás</button>
+            <button type="submit" class="btn">Siguiente</button>
+          </div>
+        </form>
+      </div>
+      
+      <div id="step3" class="quiz-step" style="display:none;">
+        <form onsubmit="event.preventDefault(); finishQuiz()">
+          <fieldset>
+            <legend>¿Qué tono prefieres?</legend>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="tono-rosado" name="tonoBlush" value="rosado" required>
+                <label for="tono-rosado" class="radio-label">Rosado</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="tono-rojo" name="tonoBlush" value="rojo">
+                <label for="tono-rojo" class="radio-label">Rojo</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="tono-morado" name="tonoBlush" value="morado">
+                <label for="tono-morado" class="radio-label">Morado</label>
+              </div>
+            </div>
+          </fieldset>
+          <div class="quiz-navigation">
+            <button type="button" class="btn btn-back" onclick="goBack(2)">Atrás</button>
+            <button type="submit" class="btn">Ver resultados</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <div id="step2" class="quiz-step" style="display:none;">
-    <form onsubmit="event.preventDefault(); nextStep('presentacion')">
-      <fieldset>
-        <legend>¿Qué presentación prefieres?</legend>
-        <label><input type="radio" name="presentacion" value="polvo" required> Polvo</label><br>
-        <label><input type="radio" name="presentacion" value="crema"> Crema</label><br>
-        <label><input type="radio" name="presentacion" value="liquido"> Líquido</label>
-      </fieldset>
-      <button type="submit" class="btn">Siguiente</button>
-    </form>
-  </div>
-  <div id="step3" class="quiz-step" style="display:none;">
-    <form onsubmit="event.preventDefault(); finishQuiz()">
-      <fieldset>
-        <legend>¿Qué tono prefieres?</legend>
-        <label><input type="radio" name="tonoBlush" value="rosado" required> Rosado</label><br>
-        <label><input type="radio" name="tonoBlush" value="rojo"> Rojo</label><br>
-        <label><input type="radio" name="tonoBlush" value="morado"> Morado</label>
-      </fieldset>
-      <button type="submit" class="btn">Ver resultados</button>
-    </form>
-  </div>
+  
   <script>
     let respuestas = {};
+    let currentStep = 1;
+    
+    function updateProgressIndicators(step) {
+      // Reset all indicators
+      document.querySelectorAll('.progress-step').forEach((el, index) => {
+        el.classList.remove('active', 'completed');
+        if (index + 1 < step) {
+          el.classList.add('completed');
+        } else if (index + 1 === step) {
+          el.classList.add('active');
+        }
+      });
+    }
+    
+    function goBack(step) {
+      document.getElementById(`step${step+1}`).style.display = 'none';
+      document.getElementById(`step${step}`).style.display = 'block';
+      currentStep = step;
+      updateProgressIndicators(currentStep);
+    }
+    
     function nextStep(param) {
       const step = param === 'acabado' ? 1 : param === 'presentacion' ? 2 : 3;
       const value = document.querySelector(`#step${step} input[name="${param}"]:checked`).value;
       respuestas[param] = value;
       document.getElementById(`step${step}`).style.display = 'none';
       document.getElementById(`step${step+1}`).style.display = 'block';
+      currentStep = step + 1;
+      updateProgressIndicators(currentStep);
     }
+    
     function finishQuiz() {
       const value = document.querySelector('#step3 input[name="tonoBlush"]:checked').value;
       respuestas['tonoBlush'] = value;
@@ -66,6 +151,9 @@
           window.location.href = `/vista/recomendaciones-blush?acabado=${respuestas.acabado}&presentacion=${respuestas.presentacion}&tonoBlush=${respuestas.tonoBlush}`;
         });
     }
+    
+    // Initialize progress indicators
+    updateProgressIndicators(1);
   </script>
 </body>
 </html>

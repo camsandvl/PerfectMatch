@@ -2,56 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Rimel</title>
-  <link rel="stylesheet" href="../static/styles.css">
+  <link rel="stylesheet" href="../static/quizzes.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
   <header><h1>Perfect Match</h1></header>
-  <div id="step1" class="quiz-step">
-    <form onsubmit="event.preventDefault(); nextStep('color')">
-      <fieldset>
-        <legend>¿Qué color de rimel prefieres?</legend>
-        <label><input type="radio" name="color" value="negro" required> Negro</label><br>
-        <label><input type="radio" name="color" value="azul"> Azul</label><br>
-        <label><input type="radio" name="color" value="transparente"> Transparente</label>
-      </fieldset>
-      <button type="submit" class="btn">Siguiente</button>
-    </form>
+  
+  <div class="quiz-container">
+    <div class="quiz-image-section">
+      <img src="../static/img/quiz3.png" alt="Rimel Quiz" class="quiz-image">
+    </div>
+    
+    <div class="quiz-content">
+      <h2 class="quiz-title">Encuentra tu rimel ideal</h2>
+      <p class="quiz-description">Responde estas preguntas para ayudarnos a encontrar el rimel perfecto para ti.</p>
+      
+      <div class="quiz-progress">
+        <div class="progress-step active" id="step-indicator-1"></div>
+        <div class="progress-step" id="step-indicator-2"></div>
+        <div class="progress-step" id="step-indicator-3"></div>
+      </div>
+      
+      <div id="step1" class="quiz-step">
+        <form onsubmit="event.preventDefault(); nextStep('color')">
+          <fieldset>
+            <legend>¿Qué color de rimel prefieres?</legend>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="color-negro" name="color" value="negro" required>
+                <label for="color-negro" class="radio-label">Negro</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="color-azul" name="color" value="azul">
+                <label for="color-azul" class="radio-label">Azul</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="color-transparente" name="color" value="transparente">
+                <label for="color-transparente" class="radio-label">Transparente</label>
+              </div>
+            </div>
+          </fieldset>
+          <button type="submit" class="btn">Siguiente</button>
+        </form>
+      </div>
+      
+      <div id="step2" class="quiz-step" style="display:none;">
+        <form onsubmit="event.preventDefault(); nextStep('waterproof')">
+          <fieldset>
+            <legend>¿Quieres que sea waterproof?</legend>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="waterproof-si" name="waterproof" value="true" required>
+                <label for="waterproof-si" class="radio-label">Sí</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="waterproof-no" name="waterproof" value="false">
+                <label for="waterproof-no" class="radio-label">No</label>
+              </div>
+            </div>
+          </fieldset>
+          <div class="quiz-navigation">
+            <button type="button" class="btn btn-back" onclick="goBack(1)">Atrás</button>
+            <button type="submit" class="btn">Siguiente</button>
+          </div>
+        </form>
+      </div>
+      
+      <div id="step3" class="quiz-step" style="display:none;">
+        <form onsubmit="event.preventDefault(); finishQuiz()">
+          <fieldset>
+            <legend>¿Qué función prefieres?</legend>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="funcion-alargar" name="funcion" value="alargar" required>
+                <label for="funcion-alargar" class="radio-label">Alargar</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="funcion-volumen" name="funcion" value="dar volumen">
+                <label for="funcion-volumen" class="radio-label">Dar volumen</label>
+              </div>
+            </div>
+          </fieldset>
+          <div class="quiz-navigation">
+            <button type="button" class="btn btn-back" onclick="goBack(2)">Atrás</button>
+            <button type="submit" class="btn">Ver resultados</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <div id="step2" class="quiz-step" style="display:none;">
-    <form onsubmit="event.preventDefault(); nextStep('waterproof')">
-      <fieldset>
-        <legend>¿Quieres que sea waterproof?</legend>
-        <label><input type="radio" name="waterproof" value="true" required> Sí</label><br>
-        <label><input type="radio" name="waterproof" value="false"> No</label>
-      </fieldset>
-      <button type="submit" class="btn">Siguiente</button>
-    </form>
-  </div>
-  <div id="step3" class="quiz-step" style="display:none;">
-    <form onsubmit="event.preventDefault(); finishQuiz()">
-      <fieldset>
-        <legend>¿Qué función prefieres?</legend>
-        <label><input type="radio" name="funcion" value="alargar" required> Alargar</label><br>
-        <label><input type="radio" name="funcion" value="dar volumen"> Dar volumen</label>
-      </fieldset>
-      <button type="submit" class="btn">Ver resultados</button>
-    </form>
-  </div>
+  
   <script>
     let respuestas = {};
+    let currentStep = 1;
+    
+    function updateProgressIndicators(step) {
+      // Reset all indicators
+      document.querySelectorAll('.progress-step').forEach((el, index) => {
+        el.classList.remove('active', 'completed');
+        if (index + 1 < step) {
+          el.classList.add('completed');
+        } else if (index + 1 === step) {
+          el.classList.add('active');
+        }
+      });
+    }
+    
+    function goBack(step) {
+      document.getElementById(`step${step+1}`).style.display = 'none';
+      document.getElementById(`step${step}`).style.display = 'block';
+      currentStep = step;
+      updateProgressIndicators(currentStep);
+    }
+    
     function nextStep(param) {
       const step = param === 'color' ? 1 : param === 'waterproof' ? 2 : 3;
       const value = document.querySelector(`#step${step} input[name="${param}"]:checked`).value;
       respuestas[param] = value;
       document.getElementById(`step${step}`).style.display = 'none';
       document.getElementById(`step${step+1}`).style.display = 'block';
+      currentStep = step + 1;
+      updateProgressIndicators(currentStep);
     }
+    
     function finishQuiz() {
       const value = document.querySelector('#step3 input[name="funcion"]:checked').value;
       respuestas['funcion'] = value;
       window.location.href = `/vista/recomendaciones-rimel?color=${respuestas.color}&waterproof=${respuestas.waterproof}&funcion=${respuestas.funcion}`;
     }
+    
+    // Initialize progress indicators
+    updateProgressIndicators(1);
   </script>
 </body>
 </html>
