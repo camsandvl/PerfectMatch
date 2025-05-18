@@ -39,24 +39,37 @@
     </form>
   </div>
   <script>
-    let respuestas = {};
-    function nextStep(param) {
-      const value = document.querySelector(`#step${param === 'tonoDePiel' ? 1 : param === 'acabado' ? 2 : 3} input[name="${param}"]:checked`).value;
-      respuestas[param] = value;
-      if(param === 'tonoDePiel') {
-        document.getElementById('step1').style.display = 'none';
-        document.getElementById('step2').style.display = 'block';
-      } else if(param === 'acabado') {
-        document.getElementById('step2').style.display = 'none';
-        document.getElementById('step3').style.display = 'block';
-      }
+  let respuestas = {};
+  function nextStep(param) {
+    const value = document.querySelector(`#step${param === 'tonoDePiel' ? 1 : param === 'acabado' ? 2 : 3} input[name="${param}"]:checked`).value;
+    respuestas[param] = value;
+    if(param === 'tonoDePiel') {
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+    } else if(param === 'acabado') {
+      document.getElementById('step2').style.display = 'none';
+      document.getElementById('step3').style.display = 'block';
     }
-    function finishQuiz() {
-      const value = document.querySelector('#step3 input[name="cobertura"]:checked').value;
-      respuestas['cobertura'] = value;
-      // Redirige a resultados con los parámetros en la URL
-      window.location.href = `/vista/recomendaciones?tonoDePiel=${respuestas.tonoDePiel}&acabado=${respuestas.acabado}&cobertura=${respuestas.cobertura}`;
-    }
+  }
+  function finishQuiz() {
+    const value = document.querySelector('#step3 input[name="cobertura"]:checked').value;
+    respuestas['cobertura'] = value;
+    // OBTENER USUARIO DEL LOCALSTORAGE
+    const usuario = localStorage.getItem('usuario');
+    // ENVIAR RESPUESTA AL BACKEND (no espera respuesta)
+    fetch('/api/respuestas/guardar-concelear', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tonoDePiel: respuestas.tonoDePiel,
+        acabado: respuestas.acabado,
+        cobertura: respuestas.cobertura,
+        usuario: { nombre: usuario }
+      })
+    }).catch(() => {});
+    // Redirige inmediatamente
+    window.location.href = `/vista/recomendaciones?tonoDePiel=${respuestas.tonoDePiel}&acabado=${respuestas.acabado}&cobertura=${respuestas.cobertura}`;
+  }
   </script>
 </body>
 </html>

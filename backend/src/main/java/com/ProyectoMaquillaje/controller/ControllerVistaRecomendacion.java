@@ -22,25 +22,31 @@ public class ControllerVistaRecomendacion {
     @Autowired
     private RepositorioConcelear repositorioConcelear;
 
+    @Autowired
+    private com.ProyectoMaquillaje.service.UsuarioService usuarioService;
+
     // Muestra resultados HTML con productos recomendados según las respuestas
     @GetMapping("/recomendaciones")
     public String mostrarRecomendaciones(
             @RequestParam(required = false) String tonoDePiel,
             @RequestParam(required = false) String acabado,
             @RequestParam(required = false) String cobertura,
+            @RequestParam(required = false) String usuario, // <-- nuevo parámetro
             Model model) {
 
-        // Log para verificar los parámetros recibidos
-        System.out.println("Parámetros recibidos: tonoDePiel=" + tonoDePiel + ", acabado=" + acabado + ", cobertura=" + cobertura);
+        System.out.println("Parámetros recibidos: tonoDePiel=" + tonoDePiel + ", acabado=" + acabado + ", cobertura=" + cobertura + ", usuario=" + usuario);
 
-        List<Concelear> correctores = repositorioConcelear.recomendarPorRespuestas(
-                tonoDePiel != null ? tonoDePiel : "",
-                acabado != null ? acabado : "",
-                cobertura != null ? cobertura : ""
-        );
-
-        // Log para verificar los productos obtenidos
-        System.out.println("Correctores recomendados: " + correctores);
+        List<Concelear> correctores;
+        if (usuario != null && !usuario.isEmpty()) {
+            // Esto crea la relación PREFIERE
+            correctores = usuarioService.recomendarCorrectores(usuario);
+        } else {
+            correctores = repositorioConcelear.recomendarPorRespuestas(
+                    tonoDePiel != null ? tonoDePiel : "",
+                    acabado != null ? acabado : "",
+                    cobertura != null ? cobertura : ""
+            );
+        }
 
         model.addAttribute("productos", correctores);
         return "results";  // Renderizar la plantilla results.html
@@ -54,13 +60,19 @@ public class ControllerVistaRecomendacion {
             @RequestParam(required = false) String acabado,
             @RequestParam(required = false) String presentacion,
             @RequestParam(required = false) String tonoBlush,
+            @RequestParam(required = false) String usuario,
             Model model) {
 
-        List<Blush> blushes = repositorioBlush.recomendarPorRespuestas(
-                acabado != null ? acabado : "",
-                presentacion != null ? presentacion : "",
-                tonoBlush != null ? tonoBlush : ""
-        );
+        List<Blush> blushes;
+        if (usuario != null && !usuario.isEmpty()) {
+            blushes = usuarioService.recomendarBlushes(usuario);
+        } else {
+            blushes = repositorioBlush.recomendarPorRespuestas(
+                    acabado != null ? acabado : "",
+                    presentacion != null ? presentacion : "",
+                    tonoBlush != null ? tonoBlush : ""
+            );
+        }
 
         model.addAttribute("productos", blushes);
         return "resultsBlush"; // Crea results-blush.html en templates
@@ -73,15 +85,21 @@ public class ControllerVistaRecomendacion {
             @RequestParam(required = false) String color,
             @RequestParam(required = false) String waterproof,
             @RequestParam(required = false) String funcion,
+            @RequestParam(required = false) String usuario,
             Model model) {
         boolean isWaterproof = Boolean.parseBoolean(waterproof);
-        List<Rimel> rimels = repositorioRimel.recomendarPorRespuestas(
+        List<Rimel> rimels;
+        if (usuario != null && !usuario.isEmpty()) {
+            rimels = usuarioService.recomendarRimels(usuario);
+        } else {
+            rimels = repositorioRimel.recomendarPorRespuestas(
                 color != null ? color : "",
                 isWaterproof,
                 funcion != null ? funcion : ""
-        );
+            );
+        }
 
         model.addAttribute("productos", rimels);
-        return "resultsRimel"; // Crea results-rimel.html en templates
+        return "resultsRimel";
     }
 }

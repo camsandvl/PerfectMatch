@@ -61,5 +61,11 @@
 
   <!-- Background animation -->
   <script src="background.js"></script>
+  <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+      const username = document.querySelector('input[name="username"]').value;
+      localStorage.setItem('usuario', username);
+    });
+  </script>
 </body>
 </html>

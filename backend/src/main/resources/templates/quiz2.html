@@ -51,7 +51,20 @@
     function finishQuiz() {
       const value = document.querySelector('#step3 input[name="tonoBlush"]:checked').value;
       respuestas['tonoBlush'] = value;
-      window.location.href = `/vista/recomendaciones-blush?acabado=${respuestas.acabado}&presentacion=${respuestas.presentacion}&tonoBlush=${respuestas.tonoBlush}`;
+      const usuario = localStorage.getItem('usuario');
+      fetch('/api/respuestas/guardar-blush', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          acabado: respuestas.acabado,
+          presentacion: respuestas.presentacion,
+          tonoBlush: respuestas.tonoBlush,
+          usuario: { nombre: usuario }
+        })
+      }).then(res => res.json())
+        .then(data => {
+          window.location.href = `/vista/recomendaciones-blush?acabado=${respuestas.acabado}&presentacion=${respuestas.presentacion}&tonoBlush=${respuestas.tonoBlush}`;
+        });
     }
   </script>
 </body>

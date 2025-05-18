@@ -28,13 +28,14 @@ public class ControllerRespuestas {
 
     // concelear
     @PostMapping("/guardar-concelear")
-    public Respuestas guardarRespuestas(@RequestBody Respuestas respuestas) {
-        Usuario usuario = usuarioRepository.findByNombre(respuestas.getUsuario().getNombre())
-            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        respuestas.setUsuario(usuario); 
-        respuestas.setTipo("concelear");
-        return repositorioRespuestas.save(respuestas);
-    }
+public Respuestas guardarRespuestas(@RequestBody Respuestas respuestas) {
+    System.out.println("Recibido: " + respuestas);
+    Usuario usuario = usuarioRepository.findByNombre(respuestas.getUsuario().getNombre())
+        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    respuestas.setUsuario(usuario); 
+    respuestas.setTipo("concelear");
+    return repositorioRespuestas.save(respuestas);
+}
 
     // blush
     @PostMapping("/guardar-blush")
