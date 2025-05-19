@@ -28,7 +28,6 @@ public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
     """)
     void crearRelacionPrefiere(@Param("nombreUsuario") String nombreUsuario, @Param("nombreConcelear") String nombreConcelear);
 
-    //solo en lo que no está la implementación de usuario
     @Query("""
     MATCH (c:Concelear)
     WHERE

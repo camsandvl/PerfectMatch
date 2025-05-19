@@ -1,6 +1,5 @@
 package com.ProyectoMaquillaje.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.ProyectoMaquillaje.model.Blush;
 import com.ProyectoMaquillaje.model.Concelear;
-import com.ProyectoMaquillaje.model.Respuestas;
 import com.ProyectoMaquillaje.model.Rimel;
 import com.ProyectoMaquillaje.model.Usuario;
 import com.ProyectoMaquillaje.repository.RepositorioBlush;
@@ -28,21 +26,6 @@ public class UsuarioService {
     private RepositorioBlush repositorioBlush;
     @Autowired
     private RepositorioRimel repositorioRimel;
-
-    // registrar usuario con sus respuestas correctamente
-    public Usuario registrarUsuario(Usuario usuario) {
-        if (usuario.getRespuestas() != null) {
-            List<Respuestas> respuestas = new ArrayList<>(usuario.getRespuestas());
-            for (Respuestas respuesta : respuestas) {
-                usuario.addRespuesta(respuesta); 
-                List<Concelear> correctoresRecomendados = obtenerCorrectoresSegunRespuesta(respuesta);
-                for (Concelear corrector : correctoresRecomendados) {
-                    usuario.addCorrector(corrector); 
-                }
-            }
-        }
-        return repositorioUsuario.save(usuario);
-    }
 
     // registrar usuario y productos recomendados
     public Usuario registrarUsuarioConCorrectores(Usuario usuario, List<Concelear> correctores) {
@@ -98,14 +81,5 @@ public class UsuarioService {
         repositorioUsuario.save(usuario);
         return rimelsRecomendados;
     }
- 
-    private List<Concelear> obtenerCorrectoresSegunRespuesta(Respuestas respuesta) {
-        // busca productos que coincidan con tonoDePiel, acabado y cobertura
-        return repositorioConcelear.recomendarPorRespuestas(
-            respuesta.getTonoDePiel(),
-            respuesta.getAcabado(),
-            respuesta.getCobertura()
-        );
-    }
-    
+  
 }

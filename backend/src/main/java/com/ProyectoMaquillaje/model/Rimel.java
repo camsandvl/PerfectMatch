@@ -3,8 +3,6 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Node ("Rimel")
 
 public class Rimel {
@@ -20,9 +18,6 @@ public class Rimel {
     private String color;         // negro, azul, transparente
     private boolean waterproof;
     private String funcion;       // alargar o dar volumen
-
-    @JsonIgnore
-    private Usuario usuario; // si tienes una referencia inversa
 
     public String getDescripcion() {
         return descripcion;

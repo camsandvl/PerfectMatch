@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ProyectoMaquillaje.model.Blush;
 import com.ProyectoMaquillaje.model.Concelear;
 import com.ProyectoMaquillaje.model.Rimel;
-import com.ProyectoMaquillaje.repository.RepositorioBlush;
 import com.ProyectoMaquillaje.repository.RepositorioConcelear;
 
 
@@ -36,7 +35,7 @@ public class ControllerVistaRecomendacion {
 
     List<Concelear> correctores;
     if (usuario != null && !usuario.isEmpty()) {
-        correctores = usuarioService.recomendarCorrectores(usuario); // ¡ESTO CREA LA RELACIÓN!
+        correctores = usuarioService.recomendarCorrectores(usuario); 
     } else {
         correctores = repositorioConcelear.recomendarPorRespuestas(
             tonoDePiel != null ? tonoDePiel : "",
@@ -48,11 +47,6 @@ public class ControllerVistaRecomendacion {
     model.addAttribute("productos", correctores);
     return "results";
 }
-
-
-
-    @Autowired
-    private RepositorioBlush repositorioBlush;
     @GetMapping("/recomendaciones-blush")
     public String mostrarRecomendacionesBlush(@RequestParam String usuario, Model model) {
         List<Blush> blushes = usuarioService.recomendarBlushes(usuario);
@@ -60,8 +54,6 @@ public class ControllerVistaRecomendacion {
         return "results";
     }
  
-    @Autowired
-    private com.ProyectoMaquillaje.repository.RepositorioRimel repositorioRimel;
     @GetMapping("/recomendaciones-rimel")
     public String mostrarRecomendacionesRimel(@RequestParam String usuario, Model model) {
         List<Rimel> rimels = usuarioService.recomendarRimels(usuario);
