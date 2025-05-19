@@ -132,6 +132,18 @@
     function finishQuiz() {
       const value = document.querySelector('#step3 input[name="funcion"]:checked').value;
       respuestas['funcion'] = value;
+      const usuario = localStorage.getItem('usuario');
+      fetch('/api/respuestas/guardar-rimel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          color: respuestas.color,
+          waterproof: respuestas.waterproof,
+          funcion: respuestas.funcion,
+          usuario: { nombre: usuario }
+        })
+      }).catch(() => {});
+      // Redirige inmediatamente, igual que quiz1
       window.location.href = `/vista/recomendaciones-rimel?color=${respuestas.color}&waterproof=${respuestas.waterproof}&funcion=${respuestas.funcion}`;
     }
     

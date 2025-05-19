@@ -7,56 +7,31 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ProyectoMaquillaje.model.Respuestas;
 import com.ProyectoMaquillaje.model.Rimel;
 
 public interface RepositorioRimel extends Neo4jRepository<Rimel, Long> {
     @Query("""
-        MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas),
-              (I:Rimel)
+        MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas)
+        MATCH (I:Rimel)
         WHERE
             I.color = r.color AND
             I.waterproof = r.waterproof AND
-            I.funcion = r.funcion AND
-            r IN $respuestas
+            I.funcion = r.funcion
         RETURN I
     """)
-    List<Rimel> findRimelRecomendados(@Param("nombreUsuario") String nombreUsuario);
+    List<Rimel> recomendarPorUsuario(@Param("nombreUsuario") String nombreUsuario);
 
-    //solo en lo que no está la implementación de usuario
     @Query("""
-        MATCH (r:Respuestas), (I:Rimel)
+        MATCH (I:Rimel)
         WHERE
-            I.color = r.color AND
-            I.waterproof = r.waterproof AND
-            I.funcion = r.funcion AND
-            r IN $respuestas
+            I.color = $color AND
+            I.waterproof = $waterproof AND
+            I.funcion = $funcion
         RETURN I
     """)
-    List<Rimel> findRimelRecomendados(@Param("respuestas") List<Respuestas> respuestas);
-
-    @Query("""
-    MATCH (I:Rimel)
-    WHERE
-        I.color = $color AND
-        I.waterproof = $waterproof AND
-        I.funcion = $funcion
-    RETURN I
-    """)
-List<Rimel> recomendarPorRespuestas(@Param("color") String color,
-                                    @Param("waterproof") boolean waterproof,
-                                    @Param("funcion") String funcion);
-
-    @Query("""
-    MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas)
-    MATCH (I:Rimel)
-    WHERE
-        I.color = r.color AND
-        I.waterproof = r.waterproof AND
-        I.funcion = r.funcion
-    RETURN I
-    """)
-    List<Rimel> recomendarPorUsuario(String nombreUsuario);
+    List<Rimel> recomendarPorRespuestas(@Param("color") String color,
+                                        @Param("waterproof") boolean waterproof,
+                                        @Param("funcion") String funcion);
 
     @Query("""
         MATCH (I:Rimel {nombre: $nombre})

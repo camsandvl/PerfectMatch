@@ -146,13 +146,10 @@
           tonoBlush: respuestas.tonoBlush,
           usuario: { nombre: usuario }
         })
-      }).then(res => res.json())
-        .then(data => {
-          window.location.href = `/vista/recomendaciones-blush?acabado=${respuestas.acabado}&presentacion=${respuestas.presentacion}&tonoBlush=${respuestas.tonoBlush}`;
-        });
+      }).catch(() => {});
+      window.location.href = `/vista/recomendaciones-blush?acabado=${respuestas.acabado}&presentacion=${respuestas.presentacion}&tonoBlush=${respuestas.tonoBlush}`;
     }
     
-    // Initialize progress indicators
     updateProgressIndicators(1);
   </script>
 </body>

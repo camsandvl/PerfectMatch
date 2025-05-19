@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ProyectoMaquillaje.model.Blush;
 import com.ProyectoMaquillaje.model.Concelear;
+import com.ProyectoMaquillaje.model.Rimel;
+import com.ProyectoMaquillaje.repository.RepositorioBlush;
 import com.ProyectoMaquillaje.repository.RepositorioConcelear;
 
 
@@ -22,9 +25,6 @@ public class ControllerVistaRecomendacion {
 
     @Autowired
     private com.ProyectoMaquillaje.service.UsuarioService usuarioService;
-
-    @Autowired
-    private com.ProyectoMaquillaje.service.RecomendacionService recomendacionService;
 
     @GetMapping("/recomendaciones")
     public String mostrarRecomendaciones(
@@ -50,30 +50,14 @@ public class ControllerVistaRecomendacion {
 }
 
 
-/*
+
     @Autowired
     private RepositorioBlush repositorioBlush;
     @GetMapping("/recomendaciones-blush")
-    public String mostrarRecomendacionesBlush(
-            @RequestParam(required = false) String acabado,
-            @RequestParam(required = false) String presentacion,
-            @RequestParam(required = false) String tonoBlush,
-            @RequestParam(required = false) String usuario,
-            Model model) {
-
-        List<Blush> blushes;
-        if (usuario != null && !usuario.isEmpty()) {
-            blushes = usuarioService.recomendarBlushes(usuario);
-        } else {
-            blushes = repositorioBlush.recomendarPorRespuestas(
-                    acabado != null ? acabado : "",
-                    presentacion != null ? presentacion : "",
-                    tonoBlush != null ? tonoBlush : ""
-            );
-        }
-
+    public String mostrarRecomendacionesBlush(@RequestParam String usuario, Model model) {
+        List<Blush> blushes = usuarioService.recomendarBlushes(usuario);
         model.addAttribute("productos", blushes);
-        return "resultsBlush"; // Crea results-blush.html en templates
+        return "results";
     }
  
     @Autowired
@@ -99,5 +83,5 @@ public class ControllerVistaRecomendacion {
 
         model.addAttribute("productos", rimels);
         return "resultsRimel";
-    } */
+    } 
 }

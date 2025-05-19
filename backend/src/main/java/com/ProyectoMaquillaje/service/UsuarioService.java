@@ -7,8 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ProyectoMaquillaje.model.Blush;
 import com.ProyectoMaquillaje.model.Concelear;
 import com.ProyectoMaquillaje.model.Respuestas;
+import com.ProyectoMaquillaje.model.Rimel;
 import com.ProyectoMaquillaje.model.Usuario;
 import com.ProyectoMaquillaje.repository.RepositorioBlush;
 import com.ProyectoMaquillaje.repository.RepositorioConcelear;
@@ -75,14 +77,13 @@ public class UsuarioService {
         return correctoresRecomendados;
     }
 
-    /* recomendar blush
+    // recomendar blush
     public List<Blush> recomendarBlushes(String nombreUsuario) {
         Usuario usuario = repositorioUsuario.findByNombre(nombreUsuario)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         List<Blush> blushesRecomendados = repositorioBlush.recomendarPorUsuario(nombreUsuario);
-        for (Blush blush : blushesRecomendados) {
-            usuario.addBlush(blush);
-        }
+        usuario.getBlushes().clear();
+        usuario.getBlushes().addAll(blushesRecomendados);
         repositorioUsuario.save(usuario);
         return blushesRecomendados;
     }
@@ -92,13 +93,12 @@ public class UsuarioService {
         Usuario usuario = repositorioUsuario.findByNombre(nombreUsuario)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         List<Rimel> rimelsRecomendados = repositorioRimel.recomendarPorUsuario(nombreUsuario);
-        for (Rimel rimel : rimelsRecomendados) {
-            usuario.addRimel(rimel);
-        }
+        usuario.getRimels().clear();
+        usuario.getRimels().addAll(rimelsRecomendados);
         repositorioUsuario.save(usuario);
         return rimelsRecomendados;
     }
-*/ 
+ 
     private List<Concelear> obtenerCorrectoresSegunRespuesta(Respuestas respuesta) {
         // busca productos que coincidan con tonoDePiel, acabado y cobertura
         return repositorioConcelear.recomendarPorRespuestas(

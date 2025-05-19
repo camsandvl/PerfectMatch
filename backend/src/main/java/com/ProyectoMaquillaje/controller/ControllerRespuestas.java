@@ -28,8 +28,7 @@ public class ControllerRespuestas {
 
     // concelear
     @PostMapping("/guardar-concelear")
-public Respuestas guardarRespuestas(@RequestBody Respuestas respuestas) {
-    System.out.println("Recibido: " + respuestas);
+    public Respuestas guardarRespuestas(@RequestBody Respuestas respuestas) {
     Usuario usuario = usuarioRepository.findByNombre(respuestas.getUsuario().getNombre())
         .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     respuestas.setUsuario(usuario); 
