@@ -63,25 +63,9 @@ public class ControllerVistaRecomendacion {
     @Autowired
     private com.ProyectoMaquillaje.repository.RepositorioRimel repositorioRimel;
     @GetMapping("/recomendaciones-rimel")
-    public String mostrarRecomendacionesRimel(
-            @RequestParam(required = false) String color,
-            @RequestParam(required = false) String waterproof,
-            @RequestParam(required = false) String funcion,
-            @RequestParam(required = false) String usuario,
-            Model model) {
-        boolean isWaterproof = Boolean.parseBoolean(waterproof);
-        List<Rimel> rimels;
-        if (usuario != null && !usuario.isEmpty()) {
-            rimels = usuarioService.recomendarRimels(usuario);
-        } else {
-            rimels = repositorioRimel.recomendarPorRespuestas(
-                color != null ? color : "",
-                isWaterproof,
-                funcion != null ? funcion : ""
-            );
-        }
-
+    public String mostrarRecomendacionesRimel(@RequestParam String usuario, Model model) {
+        List<Rimel> rimels = usuarioService.recomendarRimels(usuario);
         model.addAttribute("productos", rimels);
-        return "resultsRimel";
+        return "results";
     } 
 }
