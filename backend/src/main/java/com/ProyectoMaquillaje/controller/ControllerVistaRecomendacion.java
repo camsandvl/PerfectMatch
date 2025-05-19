@@ -15,6 +15,7 @@ import com.ProyectoMaquillaje.model.Rimel;
 import com.ProyectoMaquillaje.repository.RepositorioBlush;
 import com.ProyectoMaquillaje.repository.RepositorioConcelear;
 
+
 @Controller
 @RequestMapping("/vista")
 public class ControllerVistaRecomendacion {
@@ -25,32 +26,32 @@ public class ControllerVistaRecomendacion {
     @Autowired
     private com.ProyectoMaquillaje.service.UsuarioService usuarioService;
 
-    // Muestra resultados HTML con productos recomendados según las respuestas
+    @Autowired
+    private com.ProyectoMaquillaje.service.RecomendacionService recomendacionService;
+
     @GetMapping("/recomendaciones")
     public String mostrarRecomendaciones(
-            @RequestParam(required = false) String tonoDePiel,
-            @RequestParam(required = false) String acabado,
-            @RequestParam(required = false) String cobertura,
-            @RequestParam(required = false) String usuario, // <-- nuevo parámetro
-            Model model) {
+        @RequestParam(required = false) String tonoDePiel,
+        @RequestParam(required = false) String acabado,
+        @RequestParam(required = false) String cobertura,
+        @RequestParam(required = false) String usuario,
+        Model model) {
 
-        System.out.println("Parámetros recibidos: tonoDePiel=" + tonoDePiel + ", acabado=" + acabado + ", cobertura=" + cobertura + ", usuario=" + usuario);
-
-        List<Concelear> correctores;
-        if (usuario != null && !usuario.isEmpty()) {
-            // Esto crea la relación PREFIERE
-            correctores = usuarioService.recomendarCorrectores(usuario);
-        } else {
-            correctores = repositorioConcelear.recomendarPorRespuestas(
-                    tonoDePiel != null ? tonoDePiel : "",
-                    acabado != null ? acabado : "",
-                    cobertura != null ? cobertura : ""
-            );
-        }
-
-        model.addAttribute("productos", correctores);
-        return "results";  // Renderizar la plantilla results.html
+    List<Concelear> correctores;
+    if (usuario != null && !usuario.isEmpty()) {
+        correctores = usuarioService.recomendarCorrectores(usuario); // <-- ESTE MÉTODO DEBE GUARDAR LA RELACIÓN
+    } else {
+        correctores = repositorioConcelear.recomendarPorRespuestas(
+            tonoDePiel != null ? tonoDePiel : "",
+            acabado != null ? acabado : "",
+            cobertura != null ? cobertura : ""
+        );
     }
+
+    model.addAttribute("productos", correctores);
+    return "results";
+}
+
 
 
     @Autowired

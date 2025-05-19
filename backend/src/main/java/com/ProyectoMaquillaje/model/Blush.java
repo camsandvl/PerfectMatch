@@ -4,8 +4,12 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Node ("Blush")
 public class Blush {
+    @JsonIgnore
+    private Usuario usuario;
     @Id
     @GeneratedValue
     private Long id;

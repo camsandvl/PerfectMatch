@@ -25,6 +25,13 @@ public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
     """)
     List<Concelear> findCorrectoresRecomendados(@Param("nombreUsuario") String nombreUsuario);
 
+    @Query("""
+    MATCH (u:Usuario {nombre: $nombreUsuario}), (p:Concelear {nombre: $nombreConcelear})
+    MERGE (u)-[:PREFIERE]->(p)
+    """)
+    void crearRelacionPrefiere(@Param("nombreUsuario") String nombreUsuario, @Param("nombreConcelear") String nombreConcelear);
+
+
     //solo en lo que no está la implementación de usuario
     @Query("""
         MATCH (r:Respuestas),(c:Concelear)

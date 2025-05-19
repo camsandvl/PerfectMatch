@@ -8,6 +8,8 @@ import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Node("Usuario")
 public class Usuario {
 
@@ -20,10 +22,11 @@ public class Usuario {
 
     @Relationship(type = "PREFIERE", direction = Relationship.Direction.OUTGOING)
     private List<Concelear> corrector = new ArrayList<>();
-    
+
     @Relationship(type = "PREFIERE", direction = Relationship.Direction.OUTGOING)
     private List<Blush> blushes = new ArrayList<>();
 
+    @JsonIgnore
     @Relationship(type = "PREFIERE", direction = Relationship.Direction.OUTGOING)
     private List<Rimel> rimels = new ArrayList<>();
 
