@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ProyectoMaquillaje.model.Blush;
 import com.ProyectoMaquillaje.model.Concelear;
-import com.ProyectoMaquillaje.model.Rimel;
-import com.ProyectoMaquillaje.repository.RepositorioBlush;
 import com.ProyectoMaquillaje.repository.RepositorioConcelear;
 
 
@@ -39,7 +36,7 @@ public class ControllerVistaRecomendacion {
 
     List<Concelear> correctores;
     if (usuario != null && !usuario.isEmpty()) {
-        correctores = usuarioService.recomendarCorrectores(usuario); // <-- ESTE MÉTODO DEBE GUARDAR LA RELACIÓN
+        correctores = usuarioService.recomendarCorrectores(usuario); // ¡ESTO CREA LA RELACIÓN!
     } else {
         correctores = repositorioConcelear.recomendarPorRespuestas(
             tonoDePiel != null ? tonoDePiel : "",
@@ -53,7 +50,7 @@ public class ControllerVistaRecomendacion {
 }
 
 
-
+/*
     @Autowired
     private RepositorioBlush repositorioBlush;
     @GetMapping("/recomendaciones-blush")
@@ -78,7 +75,7 @@ public class ControllerVistaRecomendacion {
         model.addAttribute("productos", blushes);
         return "resultsBlush"; // Crea results-blush.html en templates
     }
-
+ 
     @Autowired
     private com.ProyectoMaquillaje.repository.RepositorioRimel repositorioRimel;
     @GetMapping("/recomendaciones-rimel")
@@ -102,5 +99,5 @@ public class ControllerVistaRecomendacion {
 
         model.addAttribute("productos", rimels);
         return "resultsRimel";
-    }
+    } */
 }

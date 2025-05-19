@@ -1,5 +1,6 @@
 package com.ProyectoMaquillaje.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,7 +9,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ProyectoMaquillaje.model.Usuario;
 import com.ProyectoMaquillaje.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class ControllerHTML {
@@ -41,12 +41,12 @@ public class ControllerHTML {
     }
 
     @PostMapping("/login")
-public String login(
+    public String login(
     @RequestParam("username") String username,
     @RequestParam("password") String password,
     RedirectAttributes redirectAttributes
     ) {
-        // Busca el usuario por nombre
+        // busca el usuario por nombre y verifica si la contraseña es correcta
         var usuarioOpt = usuarioService.buscarPorNombre(username);
         if (usuarioOpt.isPresent() && usuarioOpt.get().getPassword().equals(password)) {
             return "redirect:/dashboard";

@@ -8,21 +8,18 @@ import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.ProyectoMaquillaje.model.Concelear;
-import com.ProyectoMaquillaje.model.Respuestas;
 
 public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
 
     @Query("""
-        MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas),
-              (p:Concelear)-[:TIENE_TONO]->(t:TonoDePiel),
-              (p)-[:TIENE_ACABADO]->(a:Acabado),
-              (p)-[:TIENE_COBERTURA]->(c:Cobertura)
-        WHERE
-            r.tonoDePiel = t.nombre AND
-            r.acabado = a.nombre AND
-            r.cobertura = c.nombre
-        RETURN p
-    """)
+    MATCH (u:Usuario {nombre: $nombreUsuario})-[:RESPONDIO]->(r:Respuestas)
+    MATCH (p:Concelear)
+    WHERE 
+        p.tonoDePiel = r.tonoDePiel AND
+        p.acabado = r.acabado AND
+        p.cobertura = r.cobertura
+    RETURN p
+""")
     List<Concelear> findCorrectoresRecomendados(@Param("nombreUsuario") String nombreUsuario);
 
     @Query("""
@@ -30,19 +27,6 @@ public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
     MERGE (u)-[:PREFIERE]->(p)
     """)
     void crearRelacionPrefiere(@Param("nombreUsuario") String nombreUsuario, @Param("nombreConcelear") String nombreConcelear);
-
-
-    //solo en lo que no está la implementación de usuario
-    @Query("""
-        MATCH (r:Respuestas),(c:Concelear)
-        WHERE
-            c.tonoDePiel = r.tonoDePiel AND
-            c.acabado = r.acabado AND
-            c.cobertura = r.cobertura AND
-            r IN $respuestas
-        RETURN c
-    """)
-    List<Concelear> findCorrectoresRecomendados(@Param("respuestas") List<Respuestas> respuestas);
 
     //solo en lo que no está la implementación de usuario
     @Query("""

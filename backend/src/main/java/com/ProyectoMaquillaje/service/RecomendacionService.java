@@ -14,7 +14,7 @@ public class RecomendacionService {
     @Autowired
     private RepositorioConcelear repositorioConcelear;
 
-    // Obtiene recomendaciones y crea la relación PREFIERE
+    // obtiene recomendaciones y crea la relación PREFIERE
     public List<Concelear> recomendarYGuardar(String nombreUsuario) {
         List<Concelear> recomendados = repositorioConcelear.recomendarPorUsuario(nombreUsuario);
 
