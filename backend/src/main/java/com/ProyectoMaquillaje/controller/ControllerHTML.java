@@ -75,7 +75,6 @@ public class ControllerHTML {
         Usuario usuario = new Usuario();
         usuario.setNombre(username);
         usuario.setPassword(password);
-        usuarioService.registrarUsuario(usuario);
         redirectAttributes.addFlashAttribute("success", "Usuario registrado correctamente");
         return "redirect:/login";
     }
