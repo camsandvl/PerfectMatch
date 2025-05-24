@@ -99,29 +99,32 @@ fieldset {
 }
 
 .title-btn {
-  padding-left: 33px;
-  padding-right: 33px;
-  padding-bottom: 12px;
-  padding-top: 12px;
-  border-radius: 9px;
-  background: #ff69b4;
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--dark-pink), #ff8dc7);
   border: none;
   font-family: "Cal Sans", sans-serif;
   text-align: center;
   cursor: pointer;
-  transition: 0.4s;
+  transition: all 0.4s ease;
   color: white;
   text-decoration: none;
   display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .title-btn:hover {
-  box-shadow: 7px 5px 56px -14px #b4035b;
+  background: linear-gradient(135deg, #ff8dc7, var(--dark-pink));
+  box-shadow: 0 15px 35px rgba(255, 105, 180, 0.5);
 }
 
 .title-btn:active {
-  transform: scale(0.97);
-  box-shadow: 7px 5px 56px -10px #b4035b;
+  transform: scale(0.98);
+  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
 }
 
 .logo-container {
@@ -256,6 +259,7 @@ fieldset {
   font-size: 48px;
   color: #ff69b4;
   margin-bottom: 3rem;
+  text-shadow: 0 4px 8px rgba(255, 105, 180, 0.2);
 }
 
 .steps-container {
@@ -296,6 +300,7 @@ fieldset {
   font-size: 24px;
   color: #ff69b4;
   margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(255, 105, 180, 0.1); 
 }
 
 .step-description {
