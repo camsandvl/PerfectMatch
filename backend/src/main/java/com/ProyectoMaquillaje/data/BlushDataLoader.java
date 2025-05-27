@@ -79,7 +79,6 @@ public class BlushDataLoader {
         guardarBlushSiNoExiste("Cheeks Out Freestyle Drama Class", "Fenty Beauty", "Rubor en crema morado suave, ideal para todos los días.",
         165.00, "mate", "crema", "morado");
 
-
     }
 
     private void guardarBlushSiNoExiste(String nombre, String marca, String descripcion, 

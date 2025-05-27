@@ -39,4 +39,18 @@ public interface RepositorioBlush extends Neo4jRepository<Blush, Long> {
         RETURN b
     """)
     Optional<Blush> findByNombre(@Param("nombre") String nombre);
+
+    @Query("""
+        MATCH (u:Usuario {nombre: $nombreUsuario}),
+              (b:Blush {nombre: $nombreBlush, presentacion: $presentacion, acabado: $acabado, tonoBlush: $tonoBlush})
+        MERGE (u)-[:PREFIERE_BLUSH]->(b)
+    """)
+    void crearRelacionPrefiereBlush(
+        @Param("nombreUsuario") String nombreUsuario,
+        @Param("nombreBlush") String nombreBlush,
+        @Param("presentacion") String presentacion,
+        @Param("acabado") String acabado,
+        @Param("tonoBlush") String tonoBlush
+    );
+
 }
