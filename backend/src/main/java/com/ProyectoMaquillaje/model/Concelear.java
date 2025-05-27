@@ -18,6 +18,7 @@ public class Concelear {
     private double precio;
     private String acabado;
     private String cobertura;
+    private String imagenUrl;
 
     
     public String getDescripcion() {
@@ -83,6 +84,14 @@ public class Concelear {
     
     public void setCobertura(String cobertura) {
         this.cobertura = cobertura;
+    }
+
+     public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
     
 }

@@ -17,6 +17,7 @@ public class Blush {
     private String acabado;
     private String presentacion; // polvo, crema, liquido
     private String tonoBlush;
+    private String imagenUrl;
 
     public String getDescripcion() {
         return descripcion;
@@ -80,6 +81,14 @@ public class Blush {
 
     public void setTonoBlush(String tonoBlush) {
         this.tonoBlush = tonoBlush;
+    }
+
+     public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
 
 }

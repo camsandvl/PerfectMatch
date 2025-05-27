@@ -18,6 +18,7 @@ public class Rimel {
     private String color;         // negro, azul, transparente
     private boolean waterproof;
     private String funcion;       // alargar o dar volumen
+    private String imagenUrl;
 
     public String getDescripcion() {
         return descripcion;
@@ -81,5 +82,13 @@ public class Rimel {
 
     public void setFuncion(String funcion) {
         this.funcion = funcion;
+    }
+
+     public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
 }

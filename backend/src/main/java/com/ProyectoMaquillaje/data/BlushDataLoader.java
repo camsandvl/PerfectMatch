@@ -23,58 +23,61 @@ public class BlushDataLoader {
     public void init() {
         //luminoso - polvo/crema/liquido - rosado/rojo/morado 
         guardarBlushSiNoExiste("Maybelline Blush Glow Rosé", "Maybelline", "Rubor luminoso rosado en polvo para un look natural.", 
-        50.99, "luminoso", "polvo", "rosado");
+        110.00, "luminoso", "polvo", "rosado");
 
-        guardarBlushSiNoExiste("Cream Blush Ruby", "NYX", "Rubor en crema rojo de acabado luminoso.", 
-        30.00, "luminoso", "crema", "rojo");
+        guardarBlushSiNoExiste("On the Glow", "Pixi", "Rubor hidratante en barra con ginseng, aloe vera y extractos de frutas, ideal para mejillas y labios.",
+        70.00, "luminoso", "crema", "rojo");
 
-        guardarBlushSiNoExiste("Liquid Shine Plum", "Rare Beauty", "Rubor líquido morado con brillo sutil.", 
-        50.99, "luminoso", "liquido", "morado");
+        guardarBlushSiNoExiste("Camo Liquid Blush Mauve", "e.l.f. Cosmetics", "Rubor líquido en tono malva con acabado luminoso, fórmula ligera y vegana con aplicador de esponja.",
+        70.00, "luminoso", "liquido", "morado");
 
-        guardarBlushSiNoExiste("Luminous Blush Berry", "L'Oréal Paris", "Polvo compacto con pigmento intenso morado.",
-        110.99, "luminoso", "polvo", "morado");
+        guardarBlushSiNoExiste("NARS Blush Sin", "NARS", "Rubor en polvo tono ciruela con acabado luminoso y destellos dorados, ideal para un look sofisticado.",
+        120.00, "luminoso", "polvo", "morado");
 
-        guardarBlushSiNoExiste("Glow Cheek Tint Pink", "NARS", "Rubor líquido rosado brillante, de textura ligera.",
-        30.00, "luminoso", "liquido", "rosado");
+        guardarBlushSiNoExiste("Afterglow Liquid Blush Brazen", "NARS", "Rubor líquido rosado brillante, de textura ligera.",
+        130.00, "luminoso", "liquido", "rosado");
 
-        guardarBlushSiNoExiste("Radiant Red Cream", "Fenty Beauty", "Rubor en crema rojo brillante, ideal para todos los días.",
-        90.00, "luminoso", "crema", "rojo");
+        guardarBlushSiNoExiste("Cheeks Out Freestyle Daiquiri Dip", "Fenty Beauty", "Rubor en crema rojo brillante, ideal para todos los días.",
+        165.00, "luminoso", "crema", "rojo");
 
-        guardarBlushSiNoExiste("Matte Touch Rosé", "Elf", "Rubor rosado en polvo con acabado mate.",
-        60.00, "mate", "polvo", "rosado");
+        guardarBlushSiNoExiste("Primer Infused Blush Always Crushing", "Elf", "Rubor rosado en polvo con acabado mate.",
+        50.00, "mate", "polvo", "rosado");
 
-        guardarBlushSiNoExiste("Velvet Cream Blush Red", "Milani", "Rubor en crema mate con pigmento rojo profundo.",
+        guardarBlushSiNoExiste("Cream Blush Merlot Moment", "Milani", "Rubor en crema mate con pigmento rojo profundo.",
         19.00, "mate", "crema", "rojo");
 
-        guardarBlushSiNoExiste("Soft Matte Liquid Violet", "Tarte", "Rubor líquido morado mate, ideal para un acabado elegante.",
-        28.00, "mate", "liquido", "morado");
+        guardarBlushSiNoExiste("Soft Pinch Liquid Blush Faith", "Rare Beauty", "Rubor líquido morado con acabado mate.", 
+        150.00, "mate", "liquido", "morado");
 
-        guardarBlushSiNoExiste("Matte finish blush Magenta", "MAC", "Polvo compacto mate en tono morado vibrante.",
-        27.00, "mate", "polvo", "morado");
+        guardarBlushSiNoExiste("Infallible Fresh Wear Blush Legendary Berry", "L'Oréal Paris", "Polvo compacto con pigmento intenso morado.",
+        110.99, "mate", "polvo", "morado");
 
-        guardarBlushSiNoExiste("Pure Pink Cream Blush", "Benefit", "Rubor en crema mate de tono rosado pastel.",
-        19.00, "mate", "crema", "rosado");
+        guardarBlushSiNoExiste("Lip and Cheek Werk", "Milk Makeup", "Rubor en crema multifuncional para mejillas y labios, en tono rosado con acabado mate suave.",
+        125.00, "mate", "crema", "rosado");
 
-        guardarBlushSiNoExiste("Matte Liquid Blush Crimson", "Revolution", "Rubor líquido mate en tono rojo fuerte.",
-        9.99, "mate", "liquido", "rojo");
+        guardarBlushSiNoExiste("Superdewy Liquid Blush Totally Blushed", "Makeup Revolution", "Rubor líquido en tono rojo con acabado mate natural, fórmula ligera y modulable para un look fresco.",
+        70.00, "mate", "liquido", "rojo");
 
-        guardarBlushSiNoExiste("Soft Luminous Pink Powder", "Too Faced", "Rubor rosado suave en polvo con efecto luminoso.",
-        9.99, "luminoso", "polvo", "rosado");
+        guardarBlushSiNoExiste("Cloud Crush Blurring Blush Golden Hour", "Too Faced", "Rubor rosado suave en polvo con efecto luminoso.",
+        190.00, "luminoso", "polvo", "rosado");
 
-        guardarBlushSiNoExiste("Liquid Love Red Glow", "KIKO Milano", "Rubor líquido rojo con brillantes",
-        19.00, "luminoso", "liquido", "rojo");
+        guardarBlushSiNoExiste("Soft Pinch Liquid Blush Grateful", "Rare Beauty", "Rubor líquido en tono rojo verdadero con acabado luminoso, fórmula ligera y modulable para un look radiante.",
+        120.00, "luminoso", "liquido", "rojo");
 
-        guardarBlushSiNoExiste("Creamy Plum Pop", "Clinique", "Rubor en crema tono morado para un look fresco.",
-        19.00, "luminoso", "crema", "morado");
+        guardarBlushSiNoExiste("Chubby Stick Plumped Up Peony", "Clinique", "Rubor en crema tono morado para un look fresco.",
+        190.00, "luminoso", "crema", "morado");
 
-        guardarBlushSiNoExiste("Matte Blush Red Earth", "Glossier", "Rubor rojo mate en polvo para un acabado natural.",
-        18.00, "mate", "polvo", "rojo");
+        guardarBlushSiNoExiste("Major Headlines Double Take Blush She Left Me on Red", "Patrick Ta", "Dúo de rubores en crema y polvo. El polvo tiene acabado mate en tono rosado vibrante, ideal para un look audaz y dimensional.",
+        296.00, "mate", "polvo", "rojo");
 
-        guardarBlushSiNoExiste("Pink Matte Cheek Tint", "ColourPop", "Rubor líquido mate en tono rosado.",
-        12.00, "mate", "liquido", "rosado");
+        guardarBlushSiNoExiste("Major Headlines Double Take Blush She Left Me on Red", "Patrick Ta", "Dúo de rubores en crema y polvo. El polvo tiene acabado mate en tono rosado vibrante, ideal para un look audaz y dimensional.",
+        296.00, "mate", "crema", "rojo");
 
-        guardarBlushSiNoExiste("Berry Blush Cream Stick", "Revlon", "RRubor en crema mate tono morado para contorno sutil.",
-        8.99, "mate", "crema", "morado");
+        guardarBlushSiNoExiste("Liquid Blush Angel Face", "ColourPop", "Rubor líquido mate en tono rosado.",
+        50.00, "mate", "liquido", "rosado");
+
+        guardarBlushSiNoExiste("Cheeks Out Freestyle Drama Class", "Fenty Beauty", "Rubor en crema morado suave, ideal para todos los días.",
+        165.00, "mate", "crema", "morado");
 
 
     }
