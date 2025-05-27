@@ -38,4 +38,17 @@ public interface RepositorioRimel extends Neo4jRepository<Rimel, Long> {
         RETURN I
     """)
     Optional<Rimel> findByNombre(@Param("nombre") String nombre);
+
+    @Query("""
+MATCH (u:Usuario {nombre: $usuario}),
+      (R:Rimel {nombre: $nombreRimel, color: $color, waterproof: $waterproof, funcion: $funcion})
+MERGE (u)-[:PREFIERE_RIMEL]->(R)
+""")
+void crearRelacionPrefiereRimel(
+    @Param("usuario") String usuario,
+    @Param("nombreRimel") String nombreRimel,
+    @Param("color") String color,
+    @Param("waterproof") boolean waterproof,
+    @Param("funcion") String funcion
+);
 }

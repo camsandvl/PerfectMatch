@@ -15,6 +15,7 @@
 
     <ul>
         <li th:each="producto : ${productos}">
+            <img th:src="${producto.imagenUrl}" alt="Imagen de producto" style="width: 150px; height: auto;">
             <strong th:text="${producto.nombre}"></strong> -
             <span th:text="${producto.marca}"></span> -
             <span th:text="${producto.descripcion}"></span> -

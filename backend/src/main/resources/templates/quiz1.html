@@ -138,7 +138,6 @@
   function finishQuiz() {
     const value = document.querySelector('#step3 input[name="cobertura"]:checked').value;
     respuestas['cobertura'] = value;
-    // OBTENER USUARIO DEL LOCALSTORAGE
     const usuario = localStorage.getItem('usuario');
     // ENVIAR RESPUESTA AL BACKEND (no espera respuesta)
     fetch('/api/respuestas/guardar-concelear', {
@@ -152,7 +151,7 @@
       })
     }).catch(() => {});
     // Redirige inmediatamente
-    window.location.href = `/vista/recomendaciones?tonoDePiel=${respuestas.tonoDePiel}&acabado=${respuestas.acabado}&cobertura=${respuestas.cobertura}`;
+    window.location.href = `/vista/recomendaciones-correctores?tonoDePiel=${respuestas.tonoDePiel}&acabado=${respuestas.acabado}&cobertura=${respuestas.cobertura}&usuario=${usuario}`;
   }
   
   // Initialize progress indicators

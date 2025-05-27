@@ -103,25 +103,41 @@ public class ControllerPaginas {
         return "redirect:/login";
     }
 
-    // Recomendaciones de correctores
-    @GetMapping("/vista/recomendaciones")
-    public String mostrarRecomendaciones(
-            @RequestParam(required = false) String tonoDePiel,
-            @RequestParam(required = false) String acabado,
-            @RequestParam(required = false) String cobertura,
-            @RequestParam(required = false) String usuario,
-            Model model) {
-        List<Concelear> correctores;
-        if (usuario != null && !usuario.isEmpty()) {
-            correctores = usuarioService.recomendarCorrectores(usuario);
-        } else {
-            correctores = repositorioConcelear.recomendarPorRespuestas(
-                    tonoDePiel != null ? tonoDePiel : "",
-                    acabado != null ? acabado : "",
-                    cobertura != null ? cobertura : "");
-        }
+    // Recomendaciones de correctores - obtener producto
+    @GetMapping("/vista/recomendaciones-correctores")
+    public String mostrarRecomendacionesCorrectores(
+        @RequestParam String tonoDePiel,
+        @RequestParam String acabado,
+        @RequestParam String cobertura,
+        @RequestParam(required = false) String usuario,
+        Model model
+    ) {
+        List<Concelear> correctores = repositorioConcelear.recomendarPorRespuestas(tonoDePiel, acabado, cobertura);
         model.addAttribute("productos", correctores);
-        return "results";
+        if (usuario != null && !usuario.isEmpty()) {
+            for (Concelear corrector : correctores) {
+                repositorioConcelear.crearRelacionPrefiereConcelear(
+                    usuario,
+                    corrector.getNombre(),
+                    corrector.getTonoDePiel(),
+                    corrector.getAcabado(),
+                    corrector.getCobertura()
+                );
+            }
+        }
+        return "results"; 
+    }
+
+    //recomendacion de blush - crear relación con ids 
+    @PostMapping("/api/preferencia/concelear")
+    public void crearRelacionPrefiereConcelear(
+            @RequestParam String usuario,
+            @RequestParam String nombre,
+            @RequestParam String tonoDePiel,
+            @RequestParam String acabado,
+            @RequestParam String cobertura
+    ) {
+        repositorioConcelear.crearRelacionPrefiereConcelear(usuario, nombre, tonoDePiel, acabado, cobertura);
     }
 
     // Recomendaciones de blush- obtener producto
@@ -135,7 +151,6 @@ public class ControllerPaginas {
     ) {
         List<Blush> blushes = repositorioBlush.recomendarPorRespuestas(acabado, presentacion, tonoBlush);
         model.addAttribute("productos", blushes);
-        // Si quieres, aquí puedes crear la relación también
         if (usuario != null && !usuario.isEmpty()) {
             for (Blush blush : blushes) {
                 repositorioBlush.crearRelacionPrefiereBlush(
@@ -147,7 +162,7 @@ public class ControllerPaginas {
                 );
             }
         }
-        return "resultsBlush"; // El nombre de tu plantilla HTML
+        return "resultsBlush"; 
     }
 
     //recomendacion de blush - crear relación con ids 
@@ -164,25 +179,41 @@ public class ControllerPaginas {
 
 
     
-    // Recomendaciones de rimel
+    // Recomendaciones de rimel - obtener producto
     @GetMapping("/vista/recomendaciones-rimel")
     public String mostrarRecomendacionesRimel(
-            @RequestParam(required = false) String usuario,
-            @RequestParam(required = false) String color,
-            @RequestParam(required = false) String waterproof,
-            @RequestParam(required = false) String funcion,
-            Model model) {
-        List<Rimel> rimels;
-        if (usuario != null && !usuario.isEmpty()) {
-            rimels = usuarioService.recomendarRimels(usuario);
-        } else {
-            boolean isWaterproof = waterproof != null && (waterproof.equalsIgnoreCase("true") || waterproof.equals("1"));
-            rimels = repositorioRimel.recomendarPorRespuestas(
-                    color != null ? color : "",
-                    isWaterproof,
-                    funcion != null ? funcion : "");
-        }
+        @RequestParam String color,
+        @RequestParam String waterproof,
+        @RequestParam String funcion,
+        @RequestParam(required = false) String usuario,
+        Model model
+    ) {
+        boolean isWaterproof = waterproof.equalsIgnoreCase("true") || waterproof.equalsIgnoreCase("si");
+        List<Rimel> rimels = repositorioRimel.recomendarPorRespuestas(color, isWaterproof, funcion);
         model.addAttribute("productos", rimels);
-        return "results";
+        if (usuario != null && !usuario.isEmpty()) {
+            for (Rimel rimel : rimels) {
+                repositorioRimel.crearRelacionPrefiereRimel(
+                    usuario,
+                    rimel.getNombre(),
+                    rimel.getColor(),
+                    rimel.isWaterproof(), 
+                    rimel.getFuncion()
+                );
+            }
+        }
+        return "resultsRimel"; 
+    }
+
+    @PostMapping("/api/preferencia/rimel")
+    public void crearRelacionPrefiereRimel(
+            @RequestParam String usuario,
+            @RequestParam String nombreRimel,
+            @RequestParam String color,
+            @RequestParam String waterproof,
+            @RequestParam String funcion
+    ) {
+        boolean waterproofBool = waterproof.equalsIgnoreCase("true") || waterproof.equalsIgnoreCase("si");
+        repositorioRimel.crearRelacionPrefiereRimel(usuario, nombreRimel, color, waterproofBool, funcion);
     }
 }

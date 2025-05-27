@@ -22,11 +22,6 @@ public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
 """)
     List<Concelear> findCorrectoresRecomendados(@Param("nombreUsuario") String nombreUsuario);
 
-    @Query("""
-    MATCH (u:Usuario {nombre: $nombreUsuario}), (p:Concelear {nombre: $nombreConcelear})
-    MERGE (u)-[:PREFIERE]->(p)
-    """)
-    void crearRelacionPrefiere(@Param("nombreUsuario") String nombreUsuario, @Param("nombreConcelear") String nombreConcelear);
 
     @Query("""
     MATCH (c:Concelear)
@@ -56,6 +51,18 @@ public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
     """)
     Optional<Concelear> findByNombre(@Param("nombre") String nombre);
 
+    @Query("""
+    MATCH (u:Usuario {nombre: $usuario}),
+          (c:Concelear {nombre: $nombre, tonoDePiel: $tonoDePiel, acabado: $acabado, cobertura: $cobertura})
+    MERGE (u)-[:PREFIERE_CONCELEAR]->(c)
+    """)
+    void crearRelacionPrefiereConcelear(
+    @Param("usuario") String usuario,
+    @Param("nombre") String nombre,
+    @Param("tonoDePiel") String tonoDePiel,
+    @Param("acabado") String acabado,
+    @Param("cobertura") String cobertura
+);
 
 
 }
