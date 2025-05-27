@@ -1,6 +1,7 @@
 package com.ProyectoMaquillaje.repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
@@ -41,16 +42,19 @@ public interface RepositorioBlush extends Neo4jRepository<Blush, Long> {
     Optional<Blush> findByNombre(@Param("nombre") String nombre);
 
     @Query("""
-        MATCH (u:Usuario {nombre: $nombreUsuario}),
-              (b:Blush {nombre: $nombreBlush, presentacion: $presentacion, acabado: $acabado, tonoBlush: $tonoBlush})
-        MERGE (u)-[:PREFIERE_BLUSH]->(b)
-    """)
-    void crearRelacionPrefiereBlush(
-        @Param("nombreUsuario") String nombreUsuario,
-        @Param("nombreBlush") String nombreBlush,
-        @Param("presentacion") String presentacion,
-        @Param("acabado") String acabado,
-        @Param("tonoBlush") String tonoBlush
-    );
+    MATCH (u:Usuario {nombre: $usuario}),
+          (b:Blush {nombre: $nombreBlush, presentacion: $presentacion, acabado: $acabado, tonoBlush: $tonoBlush})
+    MERGE (u)-[:PREFIERE_BLUSH]->(b)
+""")
+void crearRelacionPrefiereBlush(
+    @Param("usuario") String usuario,
+    @Param("nombreBlush") String nombreBlush,
+    @Param("presentacion") String presentacion,
+    @Param("acabado") String acabado,
+    @Param("tonoBlush") String tonoBlush
+);
+
+
+
 
 }

@@ -148,7 +148,8 @@
           usuario: { nombre: usuario }
         })
       }).catch(() => {});
-      window.location.href = `/vista/recomendaciones-blush?acabado=${respuestas.acabado}&presentacion=${respuestas.presentacion}&tonoBlush=${respuestas.tonoBlush}`;
+      window.location.href = `/vista/recomendaciones-blush?acabado=${respuestas.acabado}&presentacion=${respuestas.presentacion}&tonoBlush=${respuestas.tonoBlush}&usuario=${usuario}`;
+      console.log(window.location.href);
     }
     
     updateProgressIndicators(1);

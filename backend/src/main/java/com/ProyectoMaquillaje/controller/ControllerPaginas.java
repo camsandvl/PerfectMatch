@@ -97,6 +97,8 @@ public class ControllerPaginas {
         Usuario usuario = new Usuario();
         usuario.setNombre(username);
         usuario.setPassword(password);
+        // Guarda el usuario en la base de datos
+        usuarioService.registrarUsuario(usuario);
         redirectAttributes.addFlashAttribute("success", "Usuario registrado correctamente");
         return "redirect:/login";
     }
@@ -122,27 +124,46 @@ public class ControllerPaginas {
         return "results";
     }
 
-    // Recomendaciones de blush
+    // Recomendaciones de blush- obtener producto
     @GetMapping("/vista/recomendaciones-blush")
     public String mostrarRecomendacionesBlush(
-            @RequestParam(required = false) String usuario,
-            @RequestParam(required = false) String acabado,
-            @RequestParam(required = false) String presentacion,
-            @RequestParam(required = false) String tonoBlush,
-            Model model) {
-        List<Blush> blushes;
-        if (usuario != null && !usuario.isEmpty()) {
-            blushes = usuarioService.recomendarBlushes(usuario);
-        } else {
-            blushes = repositorioBlush.recomendarPorRespuestas(
-                    acabado != null ? acabado : "",
-                    presentacion != null ? presentacion : "",
-                    tonoBlush != null ? tonoBlush : "");
-        }
+        @RequestParam String acabado,
+        @RequestParam String presentacion,
+        @RequestParam String tonoBlush,
+        @RequestParam(required = false) String usuario,
+        Model model
+    ) {
+        List<Blush> blushes = repositorioBlush.recomendarPorRespuestas(acabado, presentacion, tonoBlush);
         model.addAttribute("productos", blushes);
-        return "results";
+        // Si quieres, aquí puedes crear la relación también
+        if (usuario != null && !usuario.isEmpty()) {
+            for (Blush blush : blushes) {
+                repositorioBlush.crearRelacionPrefiereBlush(
+                    usuario,
+                    blush.getNombre(),
+                    blush.getPresentacion(),
+                    blush.getAcabado(),
+                    blush.getTonoBlush()
+                );
+            }
+        }
+        return "resultsBlush"; // El nombre de tu plantilla HTML
     }
 
+    //recomendacion de blush - crear relación con ids 
+    @PostMapping("/api/preferencia/blush")
+    public void crearRelacionPrefiereBlush(
+            @RequestParam String usuario,
+            @RequestParam String nombreBlush,
+            @RequestParam String presentacion,
+            @RequestParam String acabado,
+            @RequestParam String tonoBlush
+    ) {
+        repositorioBlush.crearRelacionPrefiereBlush(usuario, nombreBlush, presentacion, acabado, tonoBlush);
+    }
+
+
+    
     // Recomendaciones de rimel
     @GetMapping("/vista/recomendaciones-rimel")
     public String mostrarRecomendacionesRimel(

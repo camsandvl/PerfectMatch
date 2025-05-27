@@ -37,6 +37,10 @@ public class UsuarioService {
         return repositorioUsuario.save(usuario);
     }
 
+    public Usuario registrarUsuario(Usuario usuario) {
+    return repositorioUsuario.save(usuario);
+}
+
     // obtener todos los usuarios
     public List<Usuario> obtenerTodosLosUsuarios() {
         return repositorioUsuario.findAll();
@@ -62,13 +66,17 @@ public class UsuarioService {
 
     // recomendar blush
     public List<Blush> recomendarBlushes(String nombreUsuario) {
-        Usuario usuario = repositorioUsuario.findByNombre(nombreUsuario)
-            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        List<Blush> blushesRecomendados = repositorioBlush.recomendarPorUsuario(nombreUsuario);
-        usuario.getBlushes().clear();
-        usuario.getBlushes().addAll(blushesRecomendados);
-        repositorioUsuario.save(usuario);
-        return blushesRecomendados;
+        List<Blush> blushes = repositorioBlush.recomendarPorUsuario(nombreUsuario);
+        for (Blush blush : blushes) {
+            repositorioBlush.crearRelacionPrefiereBlush(
+                nombreUsuario,
+                blush.getNombre(),
+                blush.getPresentacion(),
+                blush.getAcabado(),
+                blush.getTonoBlush()
+            );
+        }
+        return blushes;
     }
 
     // recomendar rimel
