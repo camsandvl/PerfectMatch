@@ -54,7 +54,7 @@ public class RimelDataLoader {
         guardarRimelSiNoExiste("Natural Length Clear WP", "e.l.f. Cosmetics", "Gel transparente resistente al agua que alarga sutilmente.",
         6.00, "transparente", true, "alargar");
 
-        guardarRimelSiNoExiste("Natural Length Clear", "e.l.f. Cosmetics", "Gel transparente para alargar de forma natural, sin grumos.",
+        guardarRimelSiNoExiste("Natural Length Clear", "Maybelline", "Gel transparente para alargar de forma natural, sin grumos.",
         5.00, "transparente", false, "alargar");
     }
 

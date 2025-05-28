@@ -83,7 +83,7 @@ public class Blush {
         this.tonoBlush = tonoBlush;
     }
 
-     public String getImagenUrl() {
+    public String getImagenUrl() {
         return imagenUrl;
     }
 
