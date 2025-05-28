@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Error | Perfect Match</title>
+  <link rel="stylesheet" href="background.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="register-login.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+  <style>
+    .error-container {
+      max-width: 420px;
+      margin: 120px auto 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 2.5rem 2rem 2rem 2rem;
+      text-align: center;
+      font-family: 'Cal Sans', Arial, sans-serif;
+      position: relative;
+      z-index: 2;
+    }
+    .error-container h1 {
+      color: #e74c3c;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-family: 'Cal Sans', Arial, sans-serif;
+    }
+    .error-container p {
+      color: #555;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    .error-btn {
+      display: inline-block;
+      background: #e74c3c;
+      color: #fff;
+      padding: 0.75rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .error-btn:hover {
+      background: #c0392b;
+    }
+    @media (max-width: 600px) {
+      .error-container {
+        margin: 60px 10px 0 10px;
+        padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fondo animado igual que en index/login -->
+  <div class="gradient-bg">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+          <feBlend in="SourceGraphic" in2="goo" />
+        </filter>
+      </defs>
+    </svg>
+    <div class="gradients-container">
+      <div class="g1"></div>
+      <div class="g2"></div>
+      <div class="g3"></div>
+      <div class="g4"></div>
+      <div class="g5"></div>
+      <div class="interactive"></div>
+    </div>
+  </div>
+
+  <div class="error-container">
+    <h1>¡Ups! Ocurrió un error</h1>
+    <p>No pudimos procesar tu solicitud.<br>
+    Por favor, intenta de nuevo más tarde.</p>
+    <a href="/" class="error-btn">Volver al inicio</a>
+  </div>
+
+  <script src="/background.js"></script>
+  <script>
+    // Movimiento del círculo interactivo (igual que en index)
+    document.addEventListener('DOMContentLoaded', () => {
+      const interBubble = document.querySelector('.interactive');
+      let curX = 0, curY = 0, tgX = 0, tgY = 0;
+
+      function move() {
+        curX += (tgX - curX) / 20;
+        curY += (tgY - curY) / 20;
+        interBubble.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
+        requestAnimationFrame(move);
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        tgX = e.clientX;
+        tgY = e.clientY;
+      });
+
+      move();
+    });
+  </script>
+</body>
+</html>
