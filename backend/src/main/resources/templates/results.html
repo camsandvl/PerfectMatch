@@ -26,6 +26,34 @@
     </ul>
     <a href="/dashboard" class="btn">Volver al inicio!</a>
 
+    <div id="similares-corrector" class="similares-section">
+      <h2>También te puede interesar (Corrector)</h2>
+      <ul id="similares-corrector-list"></ul>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const usuario = localStorage.getItem('usuario');
+    if (!usuario) return;
+      fetch('/api/recomendar/concelear?usuario=' + encodeURIComponent(usuario))
+        .then(res => res.json())
+        .then(similar => {
+          const cont = document.getElementById('similares-corrector-list');
+          if (!similar || !similar.nombre) {
+            cont.innerHTML = '<li style="color:#e75480;">No hay productos similares para recomendar.</li>';
+            return;
+          }
+          cont.innerHTML = `
+            <li>
+              <strong>${similar.nombre}</strong>
+              ${similar.marca ? ' - ' + similar.marca : ''}
+              ${similar.descripcion ? ' - ' + similar.descripcion : ''}
+              ${similar.precio ? ' - Q' + similar.precio : ''}
+            </li>
+          `;
+        });
+    });
+    </script>
 
 </body>
 </html>

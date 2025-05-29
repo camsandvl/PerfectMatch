@@ -24,17 +24,35 @@
     </ul>
     <a href="/dashboard" class="btn">Volver al inicio!</a>
 
-    <div class="floating-hearts">
-    <div class="heart">💖</div>
-    <div class="heart">💖</div>
-    <div class="heart">💖</div>
-    <div class="heart">💖</div>
-    <div class="heart">💖</div>
-    <div class="heart">💖</div>
-    <div class="heart">💖</div>
-    <div class="heart">💖</div>
-    <div class="heart">💖</div>
+    <div id="similares-rimel" class="similares-section">
+      <h2>También te puede interesar (Rímel)</h2>
+      <ul id="similares-rimel-list"></ul>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const usuario = localStorage.getItem('usuario');
+    if (!usuario) return;
+
+      fetch('/api/recomendar/rimel?usuario=' + encodeURIComponent(usuario))
+        .then(res => res.json())
+        .then(similar => {
+          const cont = document.getElementById('similares-rimel-list');
+          if (!similar || !similar.nombre) {
+            cont.innerHTML = '<li style="color:#e75480;">No hay productos similares para recomendar.</li>';
+            return;
+          }
+          cont.innerHTML = `
+            <li>
+              <strong>${similar.nombre}</strong>
+              ${similar.marca ? ' - ' + similar.marca : ''}
+              ${similar.descripcion ? ' - ' + similar.descripcion : ''}
+              ${similar.precio ? ' - Q' + similar.precio : ''}
+            </li>
+          `;
+        });
+    });
+    </script>
 
 </body>
 </html>

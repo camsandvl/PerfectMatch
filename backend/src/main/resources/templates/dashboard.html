@@ -60,11 +60,12 @@
     <div class="feedback-list" id="blushes-list"></div>
     <div class="feedback-list" id="rimels-list"></div>
   </div>
+  <div id="feedback-msg" style="text-align:center;color:#e75480;font-weight:bold;margin-top:1rem;"></div>
+  <div id="similares-list" style="margin-top:1.5rem;"></div>
 </section>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Cambia esto por tu lógica real de usuario
     const usuario = localStorage.getItem('usuario') || 'ales';
 
     fetch('/api/dashboard?usuario=' + encodeURIComponent(usuario))
@@ -83,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
             container.innerHTML += '<p class="feedback-empty">¡Ya diste retroalimentación a todos!</p>';
             return;
         }
-        // Mostrar solo los primeros 3 productos
         const mostrar = productos.slice(0, 3);
         const ul = document.createElement('ul');
         ul.className = 'feedback-ul';
@@ -92,27 +92,36 @@ document.addEventListener('DOMContentLoaded', function() {
             li.className = 'feedback-li';
             li.innerHTML = `
                 <span class="feedback-prod"><strong>${prod.nombre}</strong>${prod.marca ? ' - ' + prod.marca : ''}</span>
-                <button class="feedback-btn yes" onclick="retroalimentar('${titulo.toLowerCase()}', '${prod.nombre}', true)">Me gustó</button>
-                <button class="feedback-btn no" onclick="retroalimentar('${titulo.toLowerCase()}', '${prod.nombre}', false)">No me gustó</button>
+                <button class="feedback-btn yes" onclick="retroalimentar('${titulo.toLowerCase()}', '${prod.nombre}', true, this)">Me gustó</button>
+                <button class="feedback-btn no" onclick="retroalimentar('${titulo.toLowerCase()}', '${prod.nombre}', false, this)">No me gustó</button>
+                <span class="feedback-msg-inline"></span>
             `;
             ul.appendChild(li);
         });
         container.appendChild(ul);
     }
 
-    window.retroalimentar = function(tipo, nombre, gusto) {
+    window.retroalimentar = function(tipo, nombre, gusto, btn) {
         let endpoint = '';
-        if (tipo.includes('corrector')) endpoint = '/api/retroalimentar/concelear';
-        else if (tipo.includes('rubor')) endpoint = '/api/retroalimentar/blush';
-        else if (tipo.includes('rímel') || tipo.includes('rimel')) endpoint = '/api/retroalimentar/rimel';
-        else return;
+        if (tipo.includes('corrector')) {
+            endpoint = '/api/retroalimentar/concelear';
+        } else if (tipo.includes('rubor')) {
+            endpoint = '/api/retroalimentar/blush';
+        } else if (tipo.includes('rímel') || tipo.includes('rimel')) {
+            endpoint = '/api/retroalimentar/rimel';
+        } else return;
 
         fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `usuario=${encodeURIComponent(usuario)}&nombre=${encodeURIComponent(nombre)}&gusto=${gusto}`
         }).then(() => {
-            location.reload();
+            btn.parentElement.style.display = 'none';
+            if (!gusto) {
+                const msgSpan = btn.parentElement.querySelector('.feedback-msg-inline');
+                msgSpan.innerText = '¡Gracias! Te recomendamos volver a tomar el quiz para recomendarte productos acorde a lo que te gusta.';
+                btn.parentElement.querySelectorAll('button').forEach(b => b.disabled = true);
+            }
         });
     }
 });

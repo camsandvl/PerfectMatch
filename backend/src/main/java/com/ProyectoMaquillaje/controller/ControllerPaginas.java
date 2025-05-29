@@ -126,8 +126,10 @@ public class ControllerPaginas {
                     corrector.getAcabado(),
                     corrector.getCobertura()
                 );
+                
             }
         }
+        
         return "results"; 
     }
 
@@ -165,6 +167,7 @@ public class ControllerPaginas {
                     blush.getAcabado(),
                     blush.getTonoBlush()
                 );
+                
             }
         }
         return "resultsBlush"; 
