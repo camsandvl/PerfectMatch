@@ -26,10 +26,10 @@
     </ul>
     <a href="/dashboard" class="btn">Volver al inicio!</a>
 
-    <div id="similares-corrector" class="similares-section">
-      <h2>También te puede interesar (Corrector)</h2>
-      <ul id="similares-corrector-list"></ul>
-    </div>
+    <div id="similares-concelear" class="similares-section" style="max-width: 400px; margin: 2rem auto; text-align: center;">
+  <h2>También te puede interesar...</h2>
+  <ul id="similares-concelear-list" style="padding:0; list-style:none;"></ul>
+</div>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -38,18 +38,21 @@
       fetch('/api/recomendar/concelear?usuario=' + encodeURIComponent(usuario))
         .then(res => res.json())
         .then(similar => {
-          const cont = document.getElementById('similares-corrector-list');
+          const cont = document.getElementById('similares-concelear-list');
           if (!similar || !similar.nombre) {
             cont.innerHTML = '<li style="color:#e75480;">No hay productos similares para recomendar.</li>';
             return;
           }
           cont.innerHTML = `
-            <li>
-              <strong>${similar.nombre}</strong>
-              ${similar.marca ? ' - ' + similar.marca : ''}
-              ${similar.descripcion ? ' - ' + similar.descripcion : ''}
-              ${similar.precio ? ' - Q' + similar.precio : ''}
-            </li>
+          <li style="display:flex;align-items:center;gap:1rem;">
+            <img src="${similar.imagenUrl || '/img/default.png'}" alt="Imagen de producto" style="width: 100px; height: auto; border-radius:8px;">
+            <div>
+              <strong>${similar.nombre}</strong><br>
+              ${similar.marca ? '<span>' + similar.marca + '</span><br>' : ''}
+              ${similar.descripcion ? '<span>' + similar.descripcion + '</span><br>' : ''}
+              ${similar.precio ? '<span>Q' + similar.precio + '</span>' : ''}
+            </div>
+          </li>
           `;
         });
     });

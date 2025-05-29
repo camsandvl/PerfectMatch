@@ -24,10 +24,10 @@
     </ul>
     <a href="/dashboard" class="btn">Volver al inicio!</a>
 
-    <div id="similares-rimel" class="similares-section">
-      <h2>También te puede interesar (Rímel)</h2>
-      <ul id="similares-rimel-list"></ul>
-    </div>
+    <div id="similares-rimel" class="similares-section" style="max-width: 400px; margin: 2rem auto; text-align: center;">
+  <h2>También te puede interesar...</h2>
+  <ul id="similares-rimel-list" style="padding:0; list-style:none;"></ul>
+</div>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -43,12 +43,15 @@
             return;
           }
           cont.innerHTML = `
-            <li>
-              <strong>${similar.nombre}</strong>
-              ${similar.marca ? ' - ' + similar.marca : ''}
-              ${similar.descripcion ? ' - ' + similar.descripcion : ''}
-              ${similar.precio ? ' - Q' + similar.precio : ''}
-            </li>
+          <li style="display:flex;align-items:center;gap:1rem;">
+            <img src="${similar.imagenUrl || '/img/default.png'}" alt="Imagen de producto" style="width: 100px; height: auto; border-radius:8px;">
+            <div>
+              <strong>${similar.nombre}</strong><br>
+              ${similar.marca ? '<span>' + similar.marca + '</span><br>' : ''}
+              ${similar.descripcion ? '<span>' + similar.descripcion + '</span><br>' : ''}
+              ${similar.precio ? '<span>Q' + similar.precio + '</span>' : ''}
+            </div>
+          </li>
           `;
         });
     });
