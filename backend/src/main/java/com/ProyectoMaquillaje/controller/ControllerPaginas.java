@@ -1,6 +1,8 @@
 package com.ProyectoMaquillaje.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ProyectoMaquillaje.model.Blush;
@@ -128,6 +131,8 @@ public class ControllerPaginas {
         return "results"; 
     }
 
+
+
     //recomendacion de blush - crear relación con ids 
     @PostMapping("/api/preferencia/concelear")
     public void crearRelacionPrefiereConcelear(
@@ -215,5 +220,118 @@ public class ControllerPaginas {
     ) {
         boolean waterproofBool = waterproof.equalsIgnoreCase("true") || waterproof.equalsIgnoreCase("si");
         repositorioRimel.crearRelacionPrefiereRimel(usuario, nombreRimel, color, waterproofBool, funcion);
+    }
+
+
+    //RETROALIMENTACION
+    
+    //retroalimentación de correctores
+    @PostMapping("/api/retroalimentar/concelear")
+    @ResponseBody
+    public void retroalimentarConcelear(
+        @RequestParam String usuario,
+        @RequestParam String nombre,
+        @RequestParam boolean gusto
+    ) {
+        repositorioConcelear.crearRetroalimentacionConcelear(usuario, nombre, gusto);
+
+        // si gusto = true crea la relación SIMILAR_CONCELEAR con otro corrector
+        if (gusto) {
+            Concelear original = repositorioConcelear.findByNombre(nombre).orElse(null);
+            if (original != null) {
+                List<Concelear> similares = repositorioConcelear.findSimilaresPorTono(
+                    original.getNombre(),
+                    original.getTonoDePiel()
+                );
+                for (Concelear sim : similares) {
+                    repositorioConcelear.crearRelacionSimilarConcelear(nombre, sim.getNombre());
+                }
+            }
+        }
+    }
+
+    //recomendar corrector con relacion SIMILAR
+    @GetMapping("/api/recomendar/concelear")
+    @ResponseBody
+    public Concelear recomendarSimilarConcelear(@RequestParam String usuario) {
+        return repositorioConcelear.recomendarSimilarConcelear(usuario);
+    }
+
+    // BLUSH
+
+    @PostMapping("/api/retroalimentar/blush")
+    @ResponseBody
+    public void retroalimentarBlush(
+        @RequestParam String usuario,
+        @RequestParam String nombre,
+        @RequestParam boolean gusto
+    ) {
+        repositorioBlush.crearRetroalimentacionBlush(usuario, nombre, gusto);
+        if (gusto) {
+        Blush original = repositorioBlush.findByNombre(nombre).orElse(null);
+        if (original != null) {
+            List<Blush> similares = repositorioBlush.findSimilares(
+                original.getNombre(),
+                original.getAcabado(),
+                original.getPresentacion(),
+                original.getTonoBlush()
+            );
+            for (Blush sim : similares) {
+                repositorioBlush.crearRelacionSimilarBlush(nombre, sim.getNombre());
+            }
+        }
+    }
+    }
+    
+
+    @GetMapping("/api/recomendar/blush")
+    @ResponseBody
+    public Blush recomendarSimilarBlush(@RequestParam String usuario) {
+        return repositorioBlush.recomendarSimilarBlush(usuario);
+    }
+
+    // RIMEL
+
+    @PostMapping("/api/retroalimentar/rimel")
+    @ResponseBody
+    public void retroalimentarRimel(
+        @RequestParam String usuario,
+        @RequestParam String nombre,
+        @RequestParam boolean gusto
+    ) {
+        repositorioRimel.crearRetroalimentacionRimel(usuario, nombre, gusto);
+
+        if (gusto) {
+        Rimel original = repositorioRimel.findByNombre(nombre).orElse(null);
+        if (original != null) {
+            List<Rimel> similares = repositorioRimel.findSimilares(
+                original.getNombre(),
+                original.getColor(),
+                original.getFuncion()
+            );
+            System.out.println("Similares encontrados: " + similares.size());
+            for (Rimel sim : similares) {
+                System.out.println("Creando SIMILAR_RIMEL entre " + nombre + " y " + sim.getNombre());
+                repositorioRimel.crearRelacionSimilarRimel(nombre, sim.getNombre());
+            }
+        }
+    }
+    }
+
+    @GetMapping("/api/recomendar/rimel")
+    @ResponseBody
+    public Rimel recomendarSimilarRimel(@RequestParam String usuario) {
+        return repositorioRimel.recomendarSimilarRimel(usuario);
+    }
+
+    //obtener productos que no han sido retroalimentados por el usuario
+    @GetMapping("/api/dashboard")
+    @ResponseBody
+    public Map<String, List<?>> obtenerDashboard(@RequestParam String usuario) {
+        Map<String, List<?>> dashboard = new HashMap<>();
+        dashboard.put("concelears", repositorioConcelear.encontrarConcelearSinRetroalimentacion(usuario));
+        dashboard.put("blushes", repositorioBlush.encontrarBlushSinRetroalimentacion(usuario));
+        dashboard.put("rimels", repositorioRimel.encontrarRimelSinRetroalimentacion(usuario));
+        return dashboard;
     }
 }

@@ -51,4 +51,33 @@ void crearRelacionPrefiereRimel(
     @Param("waterproof") boolean waterproof,
     @Param("funcion") String funcion
 );
+
+// Crear retroalimentación
+@Query("MATCH (u:Usuario {nombre: $usuario}), (r:Rimel {nombre: $nombre}) " +
+       "MERGE (u)-[rel:RETROALIMENTO {gusto: $gusto, fecha: date()}]->(r)")
+void crearRetroalimentacionRimel(String usuario, String nombre, boolean gusto);
+
+// Crear relación SIMILAR_RIMEL
+@Query("MATCH (a:Rimel {nombre: $nombre1}), (b:Rimel {nombre: $nombre2}) " +
+       "MERGE (a)-[:SIMILAR_RIMEL]->(b)")
+void crearRelacionSimilarRimel(String nombre1, String nombre2);
+
+// Encontrar rimels sin retroalimentación
+@Query("MATCH (r:Rimel) WHERE NOT EXISTS { MATCH (:Usuario {nombre: $usuario})-[:RETROALIMENTO]->(r) } RETURN r")
+List<Rimel> encontrarRimelSinRetroalimentacion(String usuario);
+
+// Recomendar rimel similar
+@Query("""
+MATCH (u:Usuario {nombre: $usuario})-[:RETROALIMENTO {gusto: true}]->(r:Rimel)
+MATCH (r)-[:SIMILAR_RIMEL]->(sim:Rimel)
+WHERE NOT EXISTS {
+  MATCH (u)-[:RETROALIMENTO]->(sim)
+}
+RETURN sim ORDER BY rand() LIMIT 1
+""")
+Rimel recomendarSimilarRimel(String usuario);
+
+// Buscar rimels similares por color, waterproof y funcion
+@Query("MATCH (r:Rimel) WHERE r.nombre <> $nombre AND r.color = $color AND r.funcion = $funcion RETURN r")
+List<Rimel> findSimilares(String nombre, String color, String funcion);
 }

@@ -64,5 +64,30 @@ public interface RepositorioConcelear extends Neo4jRepository<Concelear, Long> {
     @Param("cobertura") String cobertura
 );
 
+    @Query("MATCH (u:Usuario {nombre: $usuario}), (c:Concelear {nombre: $nombre}) " +
+        "MERGE (u)-[r:RETROALIMENTO {gusto: $gusto, fecha: date()}]->(c)")
+    void crearRetroalimentacionConcelear(String usuario, String nombre, boolean gusto);
+
+    @Query("MATCH (a:Concelear {nombre: $nombre1}), (b:Concelear {nombre: $nombre2}) " +
+        "MERGE (a)-[:SIMILAR_CONCELEAR]->(b)")
+    void crearRelacionSimilarConcelear(String nombre1, String nombre2);
+
+    @Query("MATCH (c:Concelear) WHERE NOT EXISTS { MATCH (:Usuario {nombre: $usuario})-[:RETROALIMENTO]->(c) } RETURN c")
+    List<Concelear> encontrarConcelearSinRetroalimentacion(String usuario);
+
+    @Query("""
+    MATCH (u:Usuario {nombre: $usuario})-[:RETROALIMENTO {gusto: true}]->(c:Concelear)
+    MATCH (c)-[:SIMILAR_CONCELEAR]->(sim:Concelear)
+    WHERE NOT EXISTS {
+    MATCH (u)-[:RETROALIMENTO]->(sim)
+    }
+    RETURN sim ORDER BY rand() LIMIT 1
+    """)
+    Concelear recomendarSimilarConcelear(String usuario);
+
+    @Query("MATCH (c:Concelear) WHERE c.nombre <> $nombre AND c.tonoDePiel = $tonoDePiel RETURN c")
+    List<Concelear> findSimilaresPorTono(String nombre, String tonoDePiel);
+
+
 
 }
