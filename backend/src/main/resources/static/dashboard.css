@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap');
 
 :root {
@@ -54,11 +53,12 @@ body {
 .dashboard-main {
   padding: 0.5rem 2rem 2rem 2rem;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
   box-sizing: border-box;
   flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .dashboard-cards {
@@ -210,4 +210,81 @@ body {
   .card-img {
     height: 100px;
   }
+}
+
+.dashboard-feedback {
+  margin: 0 auto;
+  max-width: 1100px;
+  padding: 2rem 1rem 3rem 1rem;
+}
+.feedback-lists {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+.feedback-list {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 1.5rem 1.2rem;
+  min-width: 260px;
+  max-width: 320px;
+  flex: 1 1 280px;
+}
+.feedback-list h3 {
+  font-family: 'Cal Sans', Arial, sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #e74c3c;
+  text-align: center;
+}
+.feedback-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.feedback-li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.1rem;
+  gap: 0.5rem;
+}
+.feedback-prod {
+  flex: 1;
+  font-size: 1rem;
+}
+.feedback-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 1.1rem;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 0.3rem;
+  transition: background 0.2s;
+}
+.feedback-btn.yes {
+  background: #27ae60;
+  color: #fff;
+}
+.feedback-btn.yes:hover {
+  background: #219150;
+}
+.feedback-btn.no {
+  background: #e74c3c;
+  color: #fff;
+}
+.feedback-btn.no:hover {
+  background: #c0392b;
+}
+.feedback-empty {
+  color: #888;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+@media (max-width: 900px) {
+  .feedback-lists { flex-direction: column; align-items: center; }
+  .feedback-list { max-width: 100%; }
 }

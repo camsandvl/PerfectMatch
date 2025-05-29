@@ -51,6 +51,71 @@
       </div>
     </div>
     </section>
+    <!-- Listas de productos no retroalimentados -->
+<section class="dashboard-feedback">
+  <h2 class="dashboard-subtitle" style="margin-top:2.5rem;">¡Ayúdanos con tu retroalimentación!</h2>
+  <div class="feedback-lists">
+    <div class="feedback-list" id="correctores-list"></div>
+    <div class="feedback-list" id="blushes-list"></div>
+    <div class="feedback-list" id="rimels-list"></div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Cambia esto por tu lógica real de usuario
+    const usuario = localStorage.getItem('usuario') || 'ales';
+
+    fetch('/api/dashboard?usuario=' + encodeURIComponent(usuario))
+        .then(res => res.json())
+        .then(data => {
+            mostrarLista('correctores-list', data.concelears, 'Correctores');
+            mostrarLista('blushes-list', data.blushes, 'Rubores');
+            mostrarLista('rimels-list', data.rimels, 'Rímels');
+        });
+
+    function mostrarLista(id, productos, titulo) {
+        const container = document.getElementById(id);
+        if (!container) return;
+        container.innerHTML = `<h3>${titulo}</h3>`;
+        if (!productos || productos.length === 0) {
+            container.innerHTML += '<p class="feedback-empty">¡Ya diste retroalimentación a todos!</p>';
+            return;
+        }
+        // Mostrar solo los primeros 3 productos
+        const mostrar = productos.slice(0, 3);
+        const ul = document.createElement('ul');
+        ul.className = 'feedback-ul';
+        mostrar.forEach(prod => {
+            const li = document.createElement('li');
+            li.className = 'feedback-li';
+            li.innerHTML = `
+                <span class="feedback-prod"><strong>${prod.nombre}</strong>${prod.marca ? ' - ' + prod.marca : ''}</span>
+                <button class="feedback-btn yes" onclick="retroalimentar('${titulo.toLowerCase()}', '${prod.nombre}', true)">Me gustó</button>
+                <button class="feedback-btn no" onclick="retroalimentar('${titulo.toLowerCase()}', '${prod.nombre}', false)">No me gustó</button>
+            `;
+            ul.appendChild(li);
+        });
+        container.appendChild(ul);
+    }
+
+    window.retroalimentar = function(tipo, nombre, gusto) {
+        let endpoint = '';
+        if (tipo.includes('corrector')) endpoint = '/api/retroalimentar/concelear';
+        else if (tipo.includes('rubor')) endpoint = '/api/retroalimentar/blush';
+        else if (tipo.includes('rímel') || tipo.includes('rimel')) endpoint = '/api/retroalimentar/rimel';
+        else return;
+
+        fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `usuario=${encodeURIComponent(usuario)}&nombre=${encodeURIComponent(nombre)}&gusto=${gusto}`
+        }).then(() => {
+            location.reload();
+        });
+    }
+});
+</script>
   </main>
 </body>
 </html>
