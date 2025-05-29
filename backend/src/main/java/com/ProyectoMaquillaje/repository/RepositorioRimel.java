@@ -78,6 +78,14 @@ RETURN sim ORDER BY rand() LIMIT 1
 Rimel recomendarSimilarRimel(String usuario);
 
 // Buscar rimels similares por color, waterproof y funcion
-@Query("MATCH (r:Rimel) WHERE r.nombre <> $nombre AND r.color = $color AND r.funcion = $funcion RETURN r")
-List<Rimel> findSimilares(String nombre, String color, String funcion);
+@Query("""
+MATCH (r:Rimel)
+WHERE r.nombre <> $nombre AND (
+    (r.color = $color AND r.funcion = $funcion) OR
+    (r.color = $color AND r.waterproof = $waterproof) OR
+    (r.funcion = $funcion AND r.waterproof = $waterproof)
+)
+RETURN r
+""")
+List<Rimel> findSimilares(String nombre, String color, boolean waterproof, String funcion);
 }

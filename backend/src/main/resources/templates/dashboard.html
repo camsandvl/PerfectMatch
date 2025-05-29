@@ -54,7 +54,9 @@
     <!-- Listas de productos no retroalimentados -->
 <section class="dashboard-feedback">
   <h2 class="dashboard-subtitle" style="margin-top:2.5rem;">¡Ayúdanos con tu retroalimentación!</h2>
-  <p></p>
+  <p style="text-align:center; color:#ffb6d5; max-width:600px; margin:0 auto 1.5rem auto;">
+    Al seleccionar <strong>Me gustó</strong> o <strong>No me gustó</strong> en cada producto, almacenamos tus respuestas para poder recomendarte productos similares y mejorar tus futuras recomendaciones.
+  </p>
   <div class="feedback-lists">
     <div class="feedback-list" id="correctores-list"></div>
     <div class="feedback-list" id="blushes-list"></div>
@@ -66,7 +68,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const usuario = localStorage.getItem('usuario') || 'ales';
+    const usuario = localStorage.getItem('usuario') ;
 
     fetch('/api/dashboard?usuario=' + encodeURIComponent(usuario))
         .then(res => res.json())

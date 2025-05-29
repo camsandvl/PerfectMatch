@@ -74,12 +74,20 @@ MATCH (b)-[:SIMILAR_BLUSH]->(sim:Blush)
 WHERE NOT EXISTS {
   MATCH (u)-[:RETROALIMENTO]->(sim)
 }
-RETURN sim ORDER BY rand() LIMIT 1
+RETURN sim ORDER BY rand() LIMIT $limite
 """)
-Blush recomendarSimilarBlush(String usuario);
+List<Blush> recomendarSimilaresBlush(String usuario, int limite);
 
 // Buscar blushes similares por acabado, presentacion y tonoBlush
-@Query("MATCH (b:Blush) WHERE b.nombre <> $nombre AND b.acabado = $acabado AND b.presentacion = $presentacion AND b.tonoBlush = $tonoBlush RETURN b")
+@Query("""
+MATCH (b:Blush)
+WHERE b.nombre <> $nombre AND (
+    (b.acabado = $acabado AND b.presentacion = $presentacion) OR
+    (b.acabado = $acabado AND b.tonoBlush = $tonoBlush) OR
+    (b.presentacion = $presentacion AND b.tonoBlush = $tonoBlush)
+)
+RETURN b
+""")
 List<Blush> findSimilares(String nombre, String acabado, String presentacion, String tonoBlush);
 
 

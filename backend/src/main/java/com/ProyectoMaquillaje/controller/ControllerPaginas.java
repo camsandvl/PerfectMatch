@@ -289,8 +289,8 @@ public class ControllerPaginas {
 
     @GetMapping("/api/recomendar/blush")
     @ResponseBody
-    public Blush recomendarSimilarBlush(@RequestParam String usuario) {
-        return repositorioBlush.recomendarSimilarBlush(usuario);
+    public List<Blush> recomendarSimilaresBlush(@RequestParam String usuario) {
+        return repositorioBlush.recomendarSimilaresBlush(usuario, 2); // 2 productos similares
     }
 
     // RIMEL
@@ -310,6 +310,7 @@ public class ControllerPaginas {
             List<Rimel> similares = repositorioRimel.findSimilares(
                 original.getNombre(),
                 original.getColor(),
+                original.isWaterproof(),
                 original.getFuncion()
             );
             System.out.println("Similares encontrados: " + similares.size());
